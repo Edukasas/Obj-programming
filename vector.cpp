@@ -18,6 +18,97 @@ struct data {
 };
 void input(auto &student, int &totalNumberOfStudents);
 void output(auto &student, int totalNumberOfStudents, bool option);
+int getBinaryInput();
+int getIntegerInput();
+int main() {
+    vector<data> student;
+    int totalNumberOfStudents = 0;
+    
+    input(student, totalNumberOfStudents);
+    
+    bool option = getBinaryInput();
+    output(student, totalNumberOfStudents, option);
+    return 0;
+}
+
+double data::countAverage() {
+    return 0.4 * homeWorkSum + egzamRez * 0.6;
+}
+double data::countMedian() {
+    sort(homeWorkRez.begin(), homeWorkRez.end());
+    int n = homeWorkRez.size();
+    if (n > 0){
+        if (n % 2 == 0) {
+            return 0.4 * (homeWorkRez[n / 2 - 1] + homeWorkRez[n / 2]) / 2.0  + egzamRez * 0.6;
+        } else {
+            return 0.4 * homeWorkRez[n / 2] + egzamRez * 0.6;
+        }
+    }
+    else return egzamRez * 0.6;
+
+}
+void input(auto &student, int &totalNumberOfStudents) {
+        while(true){
+        data newStudent;
+        cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
+        cin >> newStudent.name;
+        while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
+            cout << "Neteisinga ivestis, iveskite tik raides: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> newStudent.name;
+        }
+        if (newStudent.name == "b") {
+            break;
+        }        
+        cout << "Studento pavarde" << endl;
+        cin >> newStudent.surname;
+        while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c) { return isalpha(c); })) {
+            cout << "Neteisinga ivestis, iveskite tik raides: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin >> newStudent.surname;
+        }
+
+        while(true){
+            cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
+            int help = getIntegerInput();
+                if (help == -1) {
+                    break;
+                }
+            newStudent.homeWorkRez.push_back(help);
+            newStudent.homeWorkSum += help;
+        }
+        if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+        else newStudent.homeWorkSum = 0;
+        cout<<"Egzamino ivertinimas"<<endl;
+        newStudent.egzamRez = getIntegerInput();
+        newStudent.finalMarkAverage = newStudent.countAverage();
+        newStudent.finalMarkMedian = newStudent.countMedian();
+        student.push_back(newStudent);
+        totalNumberOfStudents++;
+    }
+}
+
+void output(auto &student, int totalNumberOfStudents, bool option) {
+    if(option){
+    cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Vid.)"<<endl;
+    cout<<"----------------------------------------------"<<endl;
+    for(int i = 0; i < totalNumberOfStudents; i++){
+        cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkAverage<<endl;
+    }
+   cout<<"----";
+    }
+    else{
+            cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Med.)"<<endl;
+    cout<<"----------------------------------------------"<<endl;
+    for(int i = 0; i < totalNumberOfStudents; i++){
+        cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkMedian<<endl;
+    }
+   cout<<"----";
+    }
+
+}
 
 
 int getIntegerInput() {
@@ -75,93 +166,4 @@ int getBinaryInput() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     return number;
-}
-int main() {
-    vector<data> student;
-    int totalNumberOfStudents = 0;
-    
-    input(student, totalNumberOfStudents);
-    
-    bool option = getBinaryInput();
-    output(student, totalNumberOfStudents, option);
-    return 0;
-}
-
-double data::countAverage() {
-    return 0.4 * homeWorkSum + egzamRez * 0.6;
-}
-double data::countMedian() {
-    sort(homeWorkRez.begin(), homeWorkRez.end());
-    int n = homeWorkRez.size();
-    if (n > 0){
-        if (n % 2 == 0) {
-            return 0.4 * (homeWorkRez[n / 2 - 1] + homeWorkRez[n / 2]) / 2.0  + egzamRez * 0.6;
-        } else {
-            return 0.4 * homeWorkRez[n / 2] + egzamRez * 0.6;
-        }
-    }
-    else return egzamRez * 0.6;
-
-}
-void input(auto &student, int &totalNumberOfStudents) {
-        while(true){
-        data newStudent;
-        cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
-        cin >> newStudent.name;
-            if (newStudent.name == "b") {
-                break;
-            }
-        while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.name;
-        }
-        cout << "Studento pavarde" << endl;
-        cin >> newStudent.surname;
-        while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c) { return isalpha(c); })) {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.surname;
-        }
-
-        while(true){
-            cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
-            int help = getIntegerInput();
-                if (help == -1) {
-                    break;
-                }
-            newStudent.homeWorkRez.push_back(help);
-            newStudent.homeWorkSum += help;
-        }
-        if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
-        else newStudent.homeWorkSum = 0;
-        cout<<"Egzamino ivertinimas"<<endl;
-        newStudent.egzamRez = getIntegerInput();
-        newStudent.finalMarkAverage = newStudent.countAverage();
-        newStudent.finalMarkMedian = newStudent.countMedian();
-        student.push_back(newStudent);
-        totalNumberOfStudents++;
-    }
-}
-
-void output(auto &student, int totalNumberOfStudents, bool option) {
-    if(option){
-    cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Vid.)"<<endl;
-    cout<<"----------------------------------------------"<<endl;
-    for(int i = 0; i < totalNumberOfStudents; i++){
-        cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkAverage<<endl;
-    }
-   cout<<"----";
-    }
-    else{
-            cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Med.)"<<endl;
-    cout<<"----------------------------------------------"<<endl;
-    for(int i = 0; i < totalNumberOfStudents; i++){
-        cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkMedian<<endl;
-    }
-   cout<<"----";
-    }
-
 }
