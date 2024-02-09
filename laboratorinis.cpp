@@ -6,53 +6,57 @@ using namespace std;
 
 struct data {
     string name, surname;
-    int n, egzamRez; //sukurti vektoriu
+    int n, egzamRez;
     vector<int> homeWorkRez; 
     double homeWorkSum = 0, finalMark;
 };
 
 double count(double homeWorkSum, int EgzamRez);
-void input(data student[], int &totalNumberOfStudents);
-void output(data student[], int totalNumberOfStudents); 
-
+void input(auto &student, int &totalNumberOfStudents);
+void output(auto &student, int totalNumberOfStudents);
 int main() {
-    data student[200];
+    vector<data> student;
     int totalNumberOfStudents;
+    cout<<"Moksleiviu skaicius"<<endl;
+    cin>>totalNumberOfStudents;
     input(student, totalNumberOfStudents);
     output(student, totalNumberOfStudents);
     return 0;
 }
 
 double count(double homeWorkSum, int egzamRez) {
-    double sum = 0.4 * homeWorkSum + egzamRez * 0.6;
-    return sum;
+    return 0.4 * homeWorkSum + egzamRez * 0.6;
 }
 
-void input(data student[], int &totalNumberOfStudents) {
-    ifstream fd("input.txt");
-    int help;
-    fd >> totalNumberOfStudents;
-    for(int j = 0; j < totalNumberOfStudents; j++){
-        fd >> student[j].name >> student[j].surname >> student[j].n;
-        for (int i = 0; i < student[j].n; i++) {
-            fd >> help;
-            student[j].homeWorkRez.push_back(help);
-            student[j].homeWorkSum += student[j].homeWorkRez[i];
+void input(auto &student, int &totalNumberOfStudents) {
+        for(int j = 0; j < totalNumberOfStudents; j++) {
+        data newStudent;
+        cout << "Studento vardas" << endl;
+        cin >> newStudent.name;
+        cout << "Studento pavarde" << endl;
+        cin >> newStudent.surname;
+        cout << "Ivertinimu skaicius" << endl;
+        cin >> newStudent.n;
+        int help;
+        for (int i = 0; i < newStudent.n; i++) {
+            cout << "Ivertinimas" << endl;
+            cin >> help;
+            newStudent.homeWorkRez.push_back(help);
+            newStudent.homeWorkSum += help;
         }
-        student[j].homeWorkSum /= student[j].n;
-        fd >> student[j].egzamRez;
-        student[j].finalMark = count(student[j].homeWorkSum, student[j].egzamRez);
+        newStudent.homeWorkSum /= newStudent.n;
+        cout << "Egzamino rezultatas" << endl;
+        cin >> newStudent.egzamRez;
+        newStudent.finalMark = count(newStudent.homeWorkSum, newStudent.egzamRez);
+        student.push_back(newStudent);
     }
-    fd.close();
 }
 
-void output(data student[], int totalNumberOfStudents) {
-    ofstream fr ("output.txt");
-    fr<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Vid.)"<<endl;
-    fr<<"----------------------------------------------"<<endl;
+void output(auto &student, int totalNumberOfStudents) {
+    cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Vid.)"<<endl;
+    cout<<"----------------------------------------------"<<endl;
     for(int i = 0; i < totalNumberOfStudents; i++){
-        fr<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<student[i].finalMark<<endl;
+        cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<student[i].finalMark<<endl;
     }
-   fr<<"----";
-    fr.close();
+   cout<<"----";
 }
