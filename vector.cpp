@@ -6,51 +6,28 @@
 using namespace std;
 
 struct data {
-    string name, surname;
-    int n, egzamRez;
+    string name;
+    string surname;
+    int egzamRez;
     vector<int> homeWorkRez; 
-    double homeWorkSum = 0, finalMarkAverage, finalMarkMedian;
+    double homeWorkSum = 0;
+    double finalMarkAverage;
+    double finalMarkMedian;
     double countMedian();
     double countAverage();
 };
 void input(auto &student, int &totalNumberOfStudents);
 void output(auto &student, int totalNumberOfStudents, bool option);
 
+
 int getIntegerInput() {
     int number;
     string input;
     while (true) {
         cin >> input;
-        bool isValid = true;
-        for (char c : input) {
-            if (!isdigit(c)) {
-                isValid = false;
-                break;
-            }
+         if (input == "-1") {
+            return -1;
         }
-        if (isValid) {
-            stringstream ss(input);
-            if (ss >> number && ss.eof()) {
-                // Input is a valid integer
-                if (number > 0) {
-                    // Number is greater than 0
-                    break;
-                } else {
-                    cout << "Skaicius turi buti didesnis uz 0" << endl;
-                }
-            }
-        }
-        cout << "Ivestas duomuo turi buti skaicius" << endl;
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    }
-    return number;
-}
-int getIntegerInput2() {
-    int number;
-    string input;
-    while (true) {
-        cin >> input;
         bool isValid = true;
         for (char c : input) {
             if (!isdigit(c)) {
@@ -101,8 +78,7 @@ int getBinaryInput() {
 }
 int main() {
     vector<data> student;
-    cout<<"Moksleiviu skaicius"<<endl;
-    int totalNumberOfStudents = getIntegerInput();
+    int totalNumberOfStudents = 0;
     
     input(student, totalNumberOfStudents);
     
@@ -124,10 +100,13 @@ double data::countMedian() {
     }
 }
 void input(auto &student, int &totalNumberOfStudents) {
-        for(int j = 0; j < totalNumberOfStudents; j++) {
+        while(true){
         data newStudent;
-        cout << "Studento vardas" << endl;
+        cout << "Studento vardas (Iveskite 'baigti' norint pabaigti)" << endl;
         cin >> newStudent.name;
+            if (newStudent.name == "baigti") {
+                break;
+            }
         while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
             cout << "Neteisinga ivestis, iveskite tik raides: ";
             cin.clear();
@@ -142,22 +121,23 @@ void input(auto &student, int &totalNumberOfStudents) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> newStudent.surname;
         }
-        cout << "Iveskiti namu darbu skaiciu: ";
-        int numberOfGrades = getIntegerInput();
 
-        newStudent.n = numberOfGrades;
-        for (int i = 0; i < newStudent.n; i++) {
-            cout<<"Namu darbu ivertinimas"<<endl;
-            int help = getIntegerInput2();
+        while(true){
+            cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
+            int help = getIntegerInput();
+                if (help == -1) {
+                    break;
+                }
             newStudent.homeWorkRez.push_back(help);
             newStudent.homeWorkSum += help;
         }
-        newStudent.homeWorkSum /= newStudent.n;
+        newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
         cout<<"Egzamino ivertinimas"<<endl;
-        newStudent.egzamRez = getIntegerInput2();
+        newStudent.egzamRez = getIntegerInput();
         newStudent.finalMarkAverage = newStudent.countAverage();
         newStudent.finalMarkMedian = newStudent.countMedian();
         student.push_back(newStudent);
+        totalNumberOfStudents++;
     }
 }
 
