@@ -93,18 +93,22 @@ double data::countAverage() {
 double data::countMedian() {
     sort(homeWorkRez.begin(), homeWorkRez.end());
     int n = homeWorkRez.size();
-    if (n % 2 == 0) {
-        return 0.4 * (homeWorkRez[n / 2 - 1] + homeWorkRez[n / 2]) / 2.0  + egzamRez * 0.6;
-    } else {
-        return 0.4 * homeWorkRez[n / 2] + egzamRez * 0.6;
+    if (n > 0){
+        if (n % 2 == 0) {
+            return 0.4 * (homeWorkRez[n / 2 - 1] + homeWorkRez[n / 2]) / 2.0  + egzamRez * 0.6;
+        } else {
+            return 0.4 * homeWorkRez[n / 2] + egzamRez * 0.6;
+        }
     }
+    else return egzamRez * 0.6;
+
 }
 void input(auto &student, int &totalNumberOfStudents) {
         while(true){
         data newStudent;
-        cout << "Studento vardas (Iveskite 'baigti' norint pabaigti)" << endl;
+        cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
         cin >> newStudent.name;
-            if (newStudent.name == "baigti") {
+            if (newStudent.name == "b") {
                 break;
             }
         while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
@@ -131,7 +135,8 @@ void input(auto &student, int &totalNumberOfStudents) {
             newStudent.homeWorkRez.push_back(help);
             newStudent.homeWorkSum += help;
         }
-        newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+        if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+        else newStudent.homeWorkSum = 0;
         cout<<"Egzamino ivertinimas"<<endl;
         newStudent.egzamRez = getIntegerInput();
         newStudent.finalMarkAverage = newStudent.countAverage();
