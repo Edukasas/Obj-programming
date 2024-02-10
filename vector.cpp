@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 struct data {
@@ -15,6 +17,7 @@ struct data {
     double finalMarkMedian;
     double countMedian();
     double countAverage();
+    void randomHomeWorkRez();
 };
 void input(auto &student, int &totalNumberOfStudents);
 void output(auto &student, int totalNumberOfStudents, bool option);
@@ -26,11 +29,20 @@ int main() {
     
     input(student, totalNumberOfStudents);
     
+    cout<< "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana"<<endl;
     bool option = getBinaryInput();
     output(student, totalNumberOfStudents, option);
     return 0;
 }
-
+void data::randomHomeWorkRez(){
+    srand(time(nullptr));
+    int randomNumberOfHomeWork = rand() % 100 + 1;
+    for(int i = 0; i < randomNumberOfHomeWork; i++){
+        int help = rand() % 10 + 1;
+        cout<<help<<endl;
+        homeWorkRez.push_back(help);
+    }
+}
 double data::countAverage() {
     return 0.4 * homeWorkSum + egzamRez * 0.6;
 }
@@ -69,7 +81,9 @@ void input(auto &student, int &totalNumberOfStudents) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin >> newStudent.surname;
         }
-
+        cout<< "Spauspkit 1, kad ranka suvesti namu darbu pazymius, spauskite 0, kad atsitiktinai generuotu rezultata"<<endl;
+        bool option = getBinaryInput();
+        if(option){
         while(true){
             cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
             int help = getIntegerInput();
@@ -81,6 +95,8 @@ void input(auto &student, int &totalNumberOfStudents) {
         }
         if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
         else newStudent.homeWorkSum = 0;
+        }
+        else newStudent.randomHomeWorkRez();
         cout<<"Egzamino ivertinimas"<<endl;
         newStudent.egzamRez = getIntegerInput();
         newStudent.finalMarkAverage = newStudent.countAverage();
@@ -148,7 +164,6 @@ int getBinaryInput() {
     int number;
     string input;
     while (true) {
-        cout<< "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana"<<endl;
         cin >> input;
         stringstream ss(input);
         if (ss >> number && ss.eof()) {
