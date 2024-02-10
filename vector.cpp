@@ -39,9 +39,13 @@ void data::randomHomeWorkRez(){
     int randomNumberOfHomeWork = rand() % 100 + 1;
     for(int i = 0; i < randomNumberOfHomeWork; i++){
         int help = rand() % 10 + 1;
-        cout<<help<<endl;
         homeWorkRez.push_back(help);
+        homeWorkSum += help;
     }
+    // for(int i = 0; i < randomNumberOfHomeWork; i++){
+    //     cout<<homeWorkRez[i]<<endl;
+    // }
+    homeWorkSum = homeWorkSum / randomNumberOfHomeWork;
 }
 double data::countAverage() {
     return 0.4 * homeWorkSum + egzamRez * 0.6;

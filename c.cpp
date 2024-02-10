@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 struct data {
@@ -16,6 +18,7 @@ struct data {
     double finalMarkMedian;
     double countMedian();
     double countAverage();
+    void randomHomeWorkRez();
 };
 void input(data *&student, int &totalNumberOfStudents);
 void output(data *student, int totalNumberOfStudents, bool option);
@@ -25,16 +28,34 @@ int main() {
     int totalNumberOfStudents = 0;
     data *student = nullptr;
     input(student, totalNumberOfStudents);
+    cout<< "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana"<<endl;
     bool option = getBinaryInput();
     output(student, totalNumberOfStudents, option);
         for (int i = 0; i < totalNumberOfStudents; ++i) {
         delete[] student[i].homeWorkRez;
     }
     delete[] student;
-
     return 0;
 }
-
+void data::randomHomeWorkRez(){
+    srand(time(nullptr));
+    int randomNumberOfHomeWork = rand() % 100 + 1;
+    for(int i = 0; i < randomNumberOfHomeWork; i++){
+        int help = rand() % 10 + 1;
+        int *temp = new int[homeWorkCount + 1];
+        for (int i = 0; i < homeWorkCount; ++i) {
+                temp[i] = homeWorkRez[i];
+            }
+            temp[homeWorkCount++] = help;
+            delete[] homeWorkRez;
+            homeWorkRez = temp;
+            homeWorkSum += help;
+    }
+    // for(int i = 0; i < homeWorkCount; i++){
+    //     cout<<homeWorkRez[i]<<endl;
+    // }
+    homeWorkSum = homeWorkSum / randomNumberOfHomeWork;
+}
 double data::countAverage() {
     return 0.4 * homeWorkSum + egzamRez * 0.6;
 }
@@ -79,6 +100,9 @@ void input(data *&student, int &totalNumberOfStudents) {
             cin >> newStudent.surname;
         }
             newStudent.homeWorkRez = new int[1];
+        cout<< "Spauspkit 1, kad ranka suvesti namu darbu pazymius, spauskite 0, kad atsitiktinai generuotu rezultata"<<endl;
+        bool option = getBinaryInput();
+        if(option){
         while(true){
             cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
             int help = getIntegerInput();
@@ -89,14 +113,15 @@ void input(data *&student, int &totalNumberOfStudents) {
             for (int i = 0; i < newStudent.homeWorkCount; ++i) {
                 temp[i] = newStudent.homeWorkRez[i];
             }
-              temp[newStudent.homeWorkCount++] = help;
+            temp[newStudent.homeWorkCount++] = help;
             delete[] newStudent.homeWorkRez;
             newStudent.homeWorkRez = temp;
-
             newStudent.homeWorkSum += help;
         }
         if(newStudent.homeWorkCount != 0)newStudent.homeWorkSum /= newStudent.homeWorkCount;
         else newStudent.homeWorkSum = 0;
+        }
+        else newStudent.randomHomeWorkRez();
         cout<<"Egzamino ivertinimas"<<endl;
         newStudent.egzamRez = getIntegerInput();
         newStudent.finalMarkAverage = newStudent.countAverage();
@@ -167,7 +192,6 @@ int getBinaryInput() {
     int number;
     string input;
     while (true) {
-        cout<< "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana"<<endl;
         cin >> input;
         stringstream ss(input);
         if (ss >> number && ss.eof()) {
