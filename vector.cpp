@@ -17,34 +17,43 @@ struct data {
     double finalMarkMedian;
     double countMedian();
     double countAverage();
-    void randomHomeWorkRez();
+    void randomRez();
 };
-void input(auto &student, int &totalNumberOfStudents);
-void output(auto &student, int totalNumberOfStudents, bool option);
+vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
+vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
+void input(auto &student);
+void output(auto &student, bool option);
 int getBinaryInput();
 int getIntegerInput();
 int main() {
+    srand(time(nullptr));
+
     vector<data> student;
-    int totalNumberOfStudents = 0;
     
-    input(student, totalNumberOfStudents);
+    input(student);
     
     cout<< "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana"<<endl;
     bool option = getBinaryInput();
-    output(student, totalNumberOfStudents, option);
+    output(student, option);
     return 0;
 }
-void data::randomHomeWorkRez(){
-    srand(time(nullptr));
+string generateRandomName()
+{
+    return names[rand() % names.size()];
+}
+string generateRandomSurname()
+{
+    return surnames[rand() % surnames.size()];
+}
+void data::randomRez(){
     int randomNumberOfHomeWork = rand() % 100 + 1;
+    int help = rand() % 10 + 1;
+    egzamRez = help;
     for(int i = 0; i < randomNumberOfHomeWork; i++){
-        int help = rand() % 10 + 1;
+        help = rand() % 10 + 1;
         homeWorkRez.push_back(help);
         homeWorkSum += help;
     }
-    // for(int i = 0; i < randomNumberOfHomeWork; i++){
-    //     cout<<homeWorkRez[i]<<endl;
-    // }
     homeWorkSum = homeWorkSum / randomNumberOfHomeWork;
 }
 double data::countAverage() {
@@ -63,9 +72,12 @@ double data::countMedian() {
     else return egzamRez * 0.6;
 
 }
-void input(auto &student, int &totalNumberOfStudents) {
+void input(auto &student) {
         while(true){
         data newStudent;
+        cout<< "Spauspkit 1, kad ranka suvesti varda ir pavarde, spauskite 0, kad sugeneruoti varda, pavarde ir rezultatus"<<endl;
+        bool option = getBinaryInput();
+        if(option){
         cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
         cin >> newStudent.name;
         while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
@@ -86,7 +98,7 @@ void input(auto &student, int &totalNumberOfStudents) {
             cin >> newStudent.surname;
         }
         cout<< "Spauspkit 1, kad ranka suvesti namu darbu pazymius, spauskite 0, kad atsitiktinai generuotu rezultata"<<endl;
-        bool option = getBinaryInput();
+        option = getBinaryInput();
         if(option){
         while(true){
             cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
@@ -99,22 +111,27 @@ void input(auto &student, int &totalNumberOfStudents) {
         }
         if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
         else newStudent.homeWorkSum = 0;
-        }
-        else newStudent.randomHomeWorkRez();
         cout<<"Egzamino ivertinimas"<<endl;
         newStudent.egzamRez = getIntegerInput();
+        }
+        else newStudent.randomRez();
+        }
+        else {
+            newStudent.name = generateRandomName();
+            newStudent.surname = generateRandomSurname();
+            newStudent.randomRez();
+        }
         newStudent.finalMarkAverage = newStudent.countAverage();
         newStudent.finalMarkMedian = newStudent.countMedian();
         student.push_back(newStudent);
-        totalNumberOfStudents++;
     }
 }
 
-void output(auto &student, int totalNumberOfStudents, bool option) {
+void output(auto &student, bool option) {
     if(option){
     cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Vid.)"<<endl;
     cout<<"----------------------------------------------"<<endl;
-    for(int i = 0; i < totalNumberOfStudents; i++){
+    for(int i = 0; i < student.size(); i++){
         cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkAverage<<endl;
     }
    cout<<"----";
@@ -122,7 +139,7 @@ void output(auto &student, int totalNumberOfStudents, bool option) {
     else{
             cout<<setw(15)<<left<<"Pavardė"<<setw(15)<<left<<"Vardas"<<setw(15)<<left<<"Galutinis (Med.)"<<endl;
     cout<<"----------------------------------------------"<<endl;
-    for(int i = 0; i < totalNumberOfStudents; i++){
+    for(int i = 0; i < student.size(); i++){
         cout<<setw(15)<<left<<student[i].surname<<setw(15)<<left<<student[i].name<<setw(15)<<left<<fixed<<setprecision(2)<<student[i].finalMarkMedian<<endl;
     }
    cout<<"----";
