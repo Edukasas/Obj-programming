@@ -71,9 +71,6 @@ void data::randomRez()
         homeWorkRez = temp;
         homeWorkSum += help;
     }
-    // for(int i = 0; i < homeWorkCount; i++){
-    //     cout<<homeWorkRez[i]<<endl;
-    // }
     homeWorkSum = homeWorkSum / randomNumberOfHomeWork;
 }
 double data::countAverage()
@@ -165,7 +162,7 @@ void input(data *&student, int &totalNumberOfStudents)
                 newStudent.homeWorkSum /= newStudent.homeWorkCount;
             else
                 newStudent.homeWorkSum = 0;
-                
+
                 cout << "Egzamino ivertinimas" << endl;
                 newStudent.egzamRez = getIntegerInput();
         }
