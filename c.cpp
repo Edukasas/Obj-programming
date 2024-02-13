@@ -6,7 +6,6 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-
 struct data
 {
     string name;
