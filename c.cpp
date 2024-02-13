@@ -12,7 +12,7 @@ struct data
     string name;
     string surname;
     int egzamRez;
-    int *homeWorkRez; // Pointer to int array
+    int *homeWorkRez;
     int homeWorkCount = 0;
     double homeWorkSum = 0;
     double finalMarkAverage;
@@ -55,23 +55,23 @@ string generateRandomSurname()
 }
 void data::randomRez()
 {
-    int randomNumberOfHomeWork = rand() % 100 + 1;
+    homeWorkCount = rand() % 100 + 1;
     int help = rand() % 10 + 1;
     egzamRez = help;
-    for (int i = 0; i < randomNumberOfHomeWork; i++)
+    for (int i = 0; i < homeWorkCount; i++)
     {
         help = rand() % 10 + 1;
-        int *temp = new int[homeWorkCount + 1];
-        for (int i = 0; i < homeWorkCount; ++i)
+        int *temp = new int[i + 1];
+        for (int j = 0; j < i; j++)
         {
-            temp[i] = homeWorkRez[i];
+            temp[j] = homeWorkRez[j];
         }
-        temp[homeWorkCount++] = help;
+        temp[i] = help;
         delete[] homeWorkRez;
         homeWorkRez = temp;
         homeWorkSum += help;
     }
-    homeWorkSum = homeWorkSum / randomNumberOfHomeWork;
+    homeWorkSum = homeWorkSum / homeWorkCount;
 }
 double data::countAverage()
 {
