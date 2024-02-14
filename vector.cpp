@@ -78,24 +78,33 @@ void input(auto &student) {
         cout<< "Spauspkit 1, kad ranka suvesti varda ir pavarde, spauskite 0, kad sugeneruoti varda, pavarde ir rezultatus"<<endl;
         bool option = getBinaryInput();
         if(option){
-        cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
-        cin >> newStudent.name;
-        while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) { return isalpha(c); })) {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.name;
+        cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
+        cin.ignore();
+        getline(cin, newStudent.name);
+        while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) 
+                { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
+       || newStudent.name.length() > 20
+       || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
+       || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
+         {
+            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
+            cin.ignore();
+            getline(cin, newStudent.name);
         }
         if (newStudent.name == "b") {
             break;
         }        
-        cout << "Studento pavarde" << endl;
-        cin >> newStudent.surname;
-        while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c) { return isalpha(c); })) {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.surname;
+        cout << "Studento pavarde (max 20)" << endl;
+        getline(cin, newStudent.surname);
+        while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c)
+                { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
+        || newStudent.name.length() > 20
+        || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
+        || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
+         {  
+            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
+            cin.ignore();
+            getline(cin, newStudent.surname);
         }
         cout<< "Spauspkit 1, kad ranka suvesti namu darbu pazymius, spauskite 0, kad atsitiktinai generuotu rezultata"<<endl;
         option = getBinaryInput();
