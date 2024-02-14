@@ -20,8 +20,9 @@ struct data
     double countAverage();
     void randomRez();
 };
-vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
-vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
+const int size = 10;
+string* names =  new string [size]{"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
+string* surnames = new string [size]{"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
 string generateRandomSurname();
 string generateRandomName();
 void input(data *&student, int &totalNumberOfStudents);
@@ -42,15 +43,17 @@ int main()
         delete[] student[i].homeWorkRez;
     }
     delete[] student;
+    delete[] names;
+    delete[] surnames;
     return 0;
 }
 string generateRandomName()
 {
-    return names[rand() % names.size()];
+    return names[rand() % size];
 }
 string generateRandomSurname()
 {
-    return surnames[rand() % surnames.size()];
+    return surnames[rand() % size];
 }
 void data::randomRez()
 {
