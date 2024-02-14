@@ -2,7 +2,7 @@
 This repo contains two files<br>
 *c.cpp and *vector.cpp, which both accomplish the same task of letting you input the name/surname<br>
  as well as the homework/exam marks and then calculates them either by average or by median using this<br>
- formula: final mark = 0.4*average/median + 0.6*exam<br>
+ formula:<br>  ![formula.png](https://github.com/Edukasas/Obj-programming/blob/V0.1/formula.png)<br>
  vector.cpp uses vectors and c.cpp uses dynamic arrays<br>
 <br>
  You can generate marks as well as name and surname by running c.cpp or vector c.pp and pressing 0,<br>
