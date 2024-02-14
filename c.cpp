@@ -115,7 +115,6 @@ void input(data *&student, int &totalNumberOfStudents)
             cin.ignore();
         cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
         getline(cin, newStudent.name);
-        cout<<"Bam: "<<newStudent.name<<endl;
         while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c)
                         { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
        || newStudent.name.length() > 20
