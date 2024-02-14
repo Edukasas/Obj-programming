@@ -112,29 +112,36 @@ void input(data *&student, int &totalNumberOfStudents)
         cout<< "Spauspkit 1, kad ranka suvesti varda ir pavarde, spauskite 0, kad sugeneruoti varda, pavarde ir rezultatus"<<endl;
         bool option = getBinaryInput();
         if(option){
-        cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
-        cin >> newStudent.name;
+            cin.ignore();
+        cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
+        getline(cin, newStudent.name);
+        cout<<"Bam: "<<newStudent.name<<endl;
         while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c)
-                       { return isalpha(c); }))
+                        { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
+       || newStudent.name.length() > 20
+       || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
+       || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
         {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.name;
+            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
+            cin.ignore();
+            getline(cin, newStudent.name);
         }
         if (newStudent.name == "b")
         {
             break;
         }
-        cout << "Studento pavarde" << endl;
-        cin >> newStudent.surname;
+        
+        cout << "Studento pavarde (max 20)" << endl;
+        getline(cin, newStudent.surname);
         while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c)
-                       { return isalpha(c); }))
+                        { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
+       || newStudent.name.length() > 20
+       || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
+       || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
         {
-            cout << "Neteisinga ivestis, iveskite tik raides: ";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin >> newStudent.surname;
+            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
+            cin.ignore();
+            getline(cin, newStudent.surname);
         }
         newStudent.homeWorkRez = new int[1];
         cout << "Spauspkit 1, kad ranka suvesti namu darbu bei egzamino pazymius, spauskite 0, kad atsitiktinai generuotu rezultata" << endl;
@@ -192,21 +199,21 @@ void output(data *student, int totalNumberOfStudents, bool option)
 {
     if (option)
     {
-        cout << setw(15) << left << "Pavardė" << setw(15) << left << "Vardas" << setw(15) << left << "Galutinis (Vid.)" << endl;
+        cout << setw(20) << left << "Pavardė" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Vid.)" << endl;
         cout << "----------------------------------------------" << endl;
         for (int i = 0; i < totalNumberOfStudents; i++)
         {
-            cout << setw(15) << left << student[i].surname << setw(15) << left << student[i].name << setw(15) << left << fixed << setprecision(2) << student[i].finalMarkAverage << endl;
+            cout << setw(20) << left << student[i].surname << setw(20) << left << student[i].name << setw(20) << left << fixed << setprecision(2) << student[i].finalMarkAverage << endl;
         }
         cout << "----";
     }
     else
     {
-        cout << setw(15) << left << "Pavardė" << setw(15) << left << "Vardas" << setw(15) << left << "Galutinis (Med.)" << endl;
+        cout << setw(20) << left << "Pavardė" << setw(20) << left << "Vardas" << setw(20) << left << "Galutinis (Med.)" << endl;
         cout << "----------------------------------------------" << endl;
         for (int i = 0; i < totalNumberOfStudents; i++)
         {
-            cout << setw(15) << left << student[i].surname << setw(15) << left << student[i].name << setw(15) << left << fixed << setprecision(2) << student[i].finalMarkMedian << endl;
+            cout << setw(20) << left << student[i].surname << setw(20) << left << student[i].name << setw(20) << left << fixed << setprecision(2) << student[i].finalMarkMedian << endl;
         }
         cout << "----";
     }
