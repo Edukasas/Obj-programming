@@ -27,7 +27,7 @@ int getBinaryInput();
 int options();
 int getIntegerInput();
 int studentNumber();
-string nameValidation(string name, string letter);
+string nameValidation();
 int main() {
     srand(time(nullptr));
 
@@ -96,19 +96,27 @@ void input(auto &student) {
                 }
                 break;
             case 2:
+                cin.ignore();
                 while (true) {
-                    newStudent.name = nameValidation(newStudent.name, nameLetter);
+                    cout<<"Studento vardas (max 20) (Iveskite 'b' norint pabaigti)"<<endl;
+                    newStudent.name = nameValidation();
                     if (newStudent.name == "b") break;
-                    newStudent.surname = nameValidation(newStudent.surname, surnameLetter);
+                    cout<< "Studento pavarde (max 20)"<<endl;
+                    newStudent.surname = nameValidation();
                     newStudent.randomRez();
                     student.push_back(newStudent); // Push each student into the vector
                 }
                 break;
             case 3:
+
                 while(true){
-                    newStudent.name = nameValidation(newStudent.name, nameLetter); 
-                    if(newStudent.name == "b")break;      
-                    newStudent.surname = nameValidation(newStudent.surname, surnameLetter); 
+                cin.ignore();
+
+                                       cout<<"Studento vardas (max 20) (Iveskite 'b' norint pabaigti)"<<endl;
+                    newStudent.name = nameValidation();
+                    if (newStudent.name == "b") break;
+                    cout<< "Studento pavarde (max 20)"<<endl;
+                    newStudent.surname = nameValidation();
                     while(true){
                         cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
                         int help = getIntegerInput();
@@ -124,6 +132,7 @@ void input(auto &student) {
                 newStudent.egzamRez = getIntegerInput();
                 student.push_back(newStudent);
                 }
+                break;
         }
     }
 
@@ -153,7 +162,6 @@ void output(auto &student, bool option) {
     }
 
 }
-
 int options() {
     int number;
     string input;
@@ -269,8 +277,15 @@ int getBinaryInput() {
     }
     return number;
 }
-string nameValidation(string name, string letter){
+string nameValidation(){
+    string name;
+            if (cin.fail()) {
+                cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return nameValidation();
+    }
         getline(cin, name);
+
         while (!all_of(name.begin(), name.end(), [](unsigned char c)
                 { return isalpha(c) || (c == ' ' && !isspace(*(next(&c))) && !isspace(*(prev(&c)))); }) 
         || name.length() > 20
@@ -278,7 +293,7 @@ string nameValidation(string name, string letter){
         || (name.length() > 0 && name.front() == ' ')
         || (name.length() > 0 && name.back() == ' '))
          {  
-            cout << letter <<endl;
+            cout << "Netinkama ivestis" <<endl;
             getline(cin, name);
         };
         return name;
