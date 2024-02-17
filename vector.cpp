@@ -24,7 +24,10 @@ vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Da
 void input(auto &student);
 void output(auto &student, bool option);
 int getBinaryInput();
+int options();
 int getIntegerInput();
+int studentNumber();
+string nameValidation(string name, string letter);
 int main() {
     srand(time(nullptr));
 
@@ -73,66 +76,61 @@ double data::countMedian() {
 
 }
 void input(auto &student) {
-        while(true){
-        data newStudent;
-        cout<< "Spauspkit 1, kad ranka suvesti varda ir pavarde, spauskite 0, kad sugeneruoti varda, pavarde ir rezultatus"<<endl;
-        bool option = getBinaryInput();
-        if(option){
-        cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
-        cin.ignore();
-        getline(cin, newStudent.name);
-        while (!all_of(newStudent.name.begin(), newStudent.name.end(), [](unsigned char c) 
-                { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
-       || newStudent.name.length() > 20
-       || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
-       || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
-         {
-            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
-            cin.ignore();
-            getline(cin, newStudent.name);
-        }
-        if (newStudent.name == "b") {
-            break;
-        }        
-        cout << "Studento pavarde (max 20)" << endl;
-        getline(cin, newStudent.surname);
-        while (!all_of(newStudent.surname.begin(), newStudent.surname.end(), [](unsigned char c)
-                { return isalpha(c) || (c == ' ' && !isspace(*(std::next(&c))) && !isspace(*(std::prev(&c)))); }) 
-        || newStudent.name.length() > 20
-        || (newStudent.name.length() > 0 && newStudent.name.front() == ' ')
-        || (newStudent.name.length() > 0 && newStudent.name.back() == ' '))
-         {  
-            cout << "Neteisinga ivestis, iveskite tik raides (max 20): ";
-            cin.ignore();
-            getline(cin, newStudent.surname);
-        }
-        cout<< "Spauspkit 1, kad ranka suvesti namu darbu pazymius, spauskite 0, kad atsitiktinai generuotu rezultata"<<endl;
-        option = getBinaryInput();
-        if(option){
-        while(true){
-            cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
-            int help = getIntegerInput();
-                if (help == -1) {
-                    break;
+    data newStudent;
+    int workMethods = 0, studentCount;
+    string name;
+    
+    while (workMethods != 4) {
+        cout << "Pasirinkimai 1 - random vardas/pavarde ir pazymiai, 2 - random pazymiai, 3 - ranka ivesti duomenys, 4 - atvaizduoti" << endl;
+        workMethods = options();
+        string surnameLetter = "Studento pavarde (max 20)", nameLetter = "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)";
+        switch (workMethods) {
+            case 1:
+                cout << "Iveskite studentu skaiciu" << endl;
+                studentCount = studentNumber();
+                for (int i = 0; i < studentCount; i++) {
+                    newStudent.name = generateRandomName();
+                    newStudent.surname = generateRandomSurname();
+                    newStudent.randomRez();
+                    student.push_back(newStudent); // Push each student into the vector
                 }
-            newStudent.homeWorkRez.push_back(help);
-            newStudent.homeWorkSum += help;
+                break;
+            case 2:
+                while (true) {
+                    newStudent.name = nameValidation(newStudent.name, nameLetter);
+                    if (newStudent.name == "b") break;
+                    newStudent.surname = nameValidation(newStudent.surname, surnameLetter);
+                    newStudent.randomRez();
+                    student.push_back(newStudent); // Push each student into the vector
+                }
+                break;
+            case 3:
+                while(true){
+                    newStudent.name = nameValidation(newStudent.name, nameLetter); 
+                    if(newStudent.name == "b")break;      
+                    newStudent.surname = nameValidation(newStudent.surname, surnameLetter); 
+                    while(true){
+                        cout<<"Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)"<<endl;
+                        int help = getIntegerInput();
+                            if (help == -1) {
+                                break;
+                            }
+                        newStudent.homeWorkRez.push_back(help);
+                        newStudent.homeWorkSum += help;
+                    }
+                if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+                else newStudent.homeWorkSum = 0;
+                cout<<"Egzamino ivertinimas"<<endl;
+                newStudent.egzamRez = getIntegerInput();
+                student.push_back(newStudent);
+                }
         }
-        if(newStudent.homeWorkRez.size() != 0)newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
-        else newStudent.homeWorkSum = 0;
-        cout<<"Egzamino ivertinimas"<<endl;
-        newStudent.egzamRez = getIntegerInput();
-        }
-        else newStudent.randomRez();
-        }
-        else {
-            newStudent.name = generateRandomName();
-            newStudent.surname = generateRandomSurname();
-            newStudent.randomRez();
-        }
-        newStudent.finalMarkAverage = newStudent.countAverage();
-        newStudent.finalMarkMedian = newStudent.countMedian();
-        student.push_back(newStudent);
+    }
+
+    // Calculating final marks outside the loop
+    for (auto &s : student) {
+        s.finalMarkAverage = s.countAverage();
+        s.finalMarkMedian = s.countMedian();
     }
 }
 
@@ -156,7 +154,66 @@ void output(auto &student, bool option) {
 
 }
 
-
+int options() {
+    int number;
+    string input;
+    while (true) {
+        cin >> input;
+        bool isValid = true;
+        for (char c : input) {
+            if (!isdigit(c)) {
+                isValid = false;
+                break;
+            }
+        }
+        if (isValid) {
+            stringstream ss(input);
+            if (ss >> number && ss.eof()) {
+                // Input is a valid integer
+                if (number > 0 && number < 5) {
+                    // Number is greater than 0
+                    break;
+                } else {
+                    cout << "Pasirinkimai 1 - random vardas/pavarde ir pazymiai, 2 - random pazymiai, 3 - ranka ivesti duomenys, 4 - atvaizduoti" << endl;
+                }
+            }
+        }
+        cout << "Ivestas duomuo turi buti skaicius" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return number;
+}
+int studentNumber() {
+    int number;
+    string input;
+    while (true) {
+        cin >> input;
+        bool isValid = true;
+        for (char c : input) {
+            if (!isdigit(c)) {
+                isValid = false;
+                break;
+            }
+        }
+        if (isValid) {
+            stringstream ss(input);
+            if (ss >> number && ss.eof()) {
+                // Input is a valid integer
+                if (number > 0 && number < 1000) {
+                    // Number is greater than 0
+                    break;
+                } else {
+                    cout << "Studentu skaicius turi buti daugiau nei 0, bet maziau uz 1000" << endl;
+                }
+            }
+        }
+        cout << "Ivestas duomuo turi buti skaicius" << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return number;
+}
 int getIntegerInput() {
     int number;
     string input;
@@ -211,4 +268,18 @@ int getBinaryInput() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     return number;
+}
+string nameValidation(string name, string letter){
+        getline(cin, name);
+        while (!all_of(name.begin(), name.end(), [](unsigned char c)
+                { return isalpha(c) || (c == ' ' && !isspace(*(next(&c))) && !isspace(*(prev(&c)))); }) 
+        || name.length() > 20
+        || name.length() == 0
+        || (name.length() > 0 && name.front() == ' ')
+        || (name.length() > 0 && name.back() == ' '))
+         {  
+            cout << letter <<endl;
+            getline(cin, name);
+        };
+        return name;
 }
