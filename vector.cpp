@@ -23,36 +23,36 @@ struct data
 };
 vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
 vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-void input(auto &student, int nameLenght);
-void readStudentsFromFile(const string filename, auto &student, int nameLenght);
-void output(auto &student, bool option, int nameLenght);
+void input(auto &student);
+void readStudentsFromFile(const string filename, auto &student);
+void output(auto &student, bool option, int nameLength);
 int getBinaryInput();
 int options();
 int getIntegerInput();
 int studentNumber();
 void writeIntoFile(auto &student, bool option, int nameLength);
-string nameValidation(int nameLenght);
+string nameValidation();
 int main()
 {
     srand(time(nullptr));
 
     vector<data> student;
     string filename = "kursiokai.txt";
-    int nameLenght = 24;
+    int nameLength = 21;
     cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
     bool inputChoice = getBinaryInput();
-    inputChoice ? readStudentsFromFile(filename, student, nameLenght) : input(student, nameLenght); 
+    inputChoice ? readStudentsFromFile(filename, student) : input(student); 
     cout << "0 - atvaizdavimas ekrane, 1 - atvaizdavimas faile" << endl;
     bool outputChoice = getBinaryInput();
     cout << "0 - skaiciuoti pagal mediana, 1 - skaiciuoti pagal vidurki" << endl;
     bool option = getBinaryInput();
     if (outputChoice)
     {
-        writeIntoFile(student, option, nameLenght);
+        writeIntoFile(student, option, nameLength);
     }
     else
     {
-        output(student, option, nameLenght);
+        output(student, option, nameLength);
     }
 
     return 0;
@@ -100,7 +100,7 @@ double data::countMedian()
     else
         return egzamRez * 0.6;
 }
-void input(auto &student, int nameLenght)
+void input(auto &student)
 {
     data newStudent;
     int workMethods = 0, studentCount;
@@ -128,11 +128,11 @@ void input(auto &student, int nameLenght)
             while (true)
             {
                 cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
-                newStudent.name = nameValidation(nameLenght);
+                newStudent.name = nameValidation();
                 if (newStudent.name == "b")
                     break;
                 cout << "Studento pavarde" << endl;
-                newStudent.surname = nameValidation(nameLenght);
+                newStudent.surname = nameValidation();
                 newStudent.randomRez();
                 student.push_back(newStudent);
             }
@@ -144,11 +144,11 @@ void input(auto &student, int nameLenght)
                 cin.ignore();
 
                 cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
-                newStudent.name = nameValidation(nameLenght);
+                newStudent.name = nameValidation();
                 if (newStudent.name == "b")
                     break;
                 cout << "Studento pavarde " << endl;
-                newStudent.surname = nameValidation(nameLenght);
+                newStudent.surname = nameValidation();
                 while (true)
                 {
                     cout << "Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)" << endl;
@@ -179,14 +179,14 @@ void input(auto &student, int nameLenght)
     }
 }
 
-void output(auto &student, bool option, int nameLenght)
+void output(auto &student, bool option, int nameLength)
 {
 
-    cout << setw(nameLenght) << left << "Pavardė" << setw(nameLenght) << left << "Vardas" << setw(nameLenght) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << endl;
+    cout << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(nameLength) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << endl;
     cout << "---------------------------------------------------------------------" << endl;
     for (const auto &s : student)
     {
-        cout << setw(nameLenght) << left << s.surname << setw(nameLenght) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
+        cout << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
     }
     cout << "----";
 }
@@ -362,20 +362,20 @@ int getBinaryInput()
     }
     return number;
 }
-string nameValidation(int nameLenght)
+string nameValidation()
 {
     string name;
     if (cin.fail())
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return nameValidation(nameLenght);
+        return nameValidation();
     }
     getline(cin, name);
 
     while (!all_of(name.begin(), name.end(), [](unsigned char c)
                    { return isalpha(c) || (c == ' ' && !isspace(*(next(&c))) && !isspace(*(prev(&c)))); }) ||
-           name.length() > nameLenght || name.length() == 0 || (name.length() > 0 && name.front() == ' ') || (name.length() > 0 && name.back() == ' '))
+           name.length() > 20 || name.length() == 0 || (name.length() > 0 && name.front() == ' ') || (name.length() > 0 && name.back() == ' '))
     {
         cout << "Netinkama ivestis" << endl;
         getline(cin, name);
@@ -383,7 +383,7 @@ string nameValidation(int nameLenght)
     return name;
 }
 
-void readStudentsFromFile(const string filename, auto &student, int nameLenght)
+void readStudentsFromFile(const string filename, auto &student)
 {
     ifstream file(filename);
     if (!file.is_open())
@@ -395,14 +395,15 @@ void readStudentsFromFile(const string filename, auto &student, int nameLenght)
     string line;
     getline(file, line);
 
-    while (getline(file, line))
+       while (getline(file, line))
     {
         data newStudent;
-        string namePart = line.substr(0, nameLenght);
-        string surnamePart = line.substr(nameLenght, nameLenght);
-        newStudent.name = namePart;
-        newStudent.surname = surnamePart;
-        istringstream iss(line.substr(nameLenght * 2));
+               istringstream iss(line);
+        if (!(iss >> newStudent.name >> newStudent.surname))
+        {
+            cerr << "Error reading student name and surname from file " << filename << endl;
+            continue;
+        }
         int grade;
         while (iss >> grade)
         {
