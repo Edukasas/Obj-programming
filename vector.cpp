@@ -23,44 +23,38 @@ struct data
 };
 vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
 vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-void input(auto &student);
-void readStudentsFromFile(const string filename, auto &student);
-void output(auto &student, bool option);
+void input(auto &student, int nameLenght);
+void readStudentsFromFile(const string filename, auto &student, int nameLenght);
+void output(auto &student, bool option, int nameLenght);
 int getBinaryInput();
 int options();
 int getIntegerInput();
 int studentNumber();
-void printStudents(auto &students)
-{
-    data newStudent;
-    for (const auto &student : students)
-    {
-        std::cout << "Name: " << student.name << std::endl;
-        std::cout << "Surname: " << student.surname << std::endl;
-        std::cout << "ND grades:";
-        for (int grade : student.homeWorkRez)
-        {
-            std::cout << " " << grade;
-        }
-        std::cout << std::endl;
-        std::cout << "Exam grade: " << student.egzamRez << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-string nameValidation();
+void writeIntoFile(auto &student, bool option, int nameLength);
+string nameValidation(int nameLenght);
 int main()
 {
     srand(time(nullptr));
 
     vector<data> student;
     string filename = "kursiokai.txt";
-    // input(student);
-    readStudentsFromFile(filename, student);
-    printStudents(student);
-    cout << "Spauspkit 1, kad skaiciuotu galutini bala pagal vidurki, spauskite 0, kad skaiciuotu galutini bala pagal mediana" << endl;
+    int nameLenght = 24;
+    cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
+    bool inputChoice = getBinaryInput();
+    inputChoice ? readStudentsFromFile(filename, student, nameLenght) : input(student, nameLenght); 
+    cout << "0 - atvaizdavimas ekrane, 1 - atvaizdavimas faile" << endl;
+    bool outputChoice = getBinaryInput();
+    cout << "0 - skaiciuoti pagal mediana, 1 - skaiciuoti pagal vidurki" << endl;
     bool option = getBinaryInput();
-    // output(student, option);
+    if (outputChoice)
+    {
+        writeIntoFile(student, option, nameLenght);
+    }
+    else
+    {
+        output(student, option, nameLenght);
+    }
+
     return 0;
 }
 string generateRandomName()
@@ -106,7 +100,7 @@ double data::countMedian()
     else
         return egzamRez * 0.6;
 }
-void input(auto &student)
+void input(auto &student, int nameLenght)
 {
     data newStudent;
     int workMethods = 0, studentCount;
@@ -126,21 +120,21 @@ void input(auto &student)
                 newStudent.name = generateRandomName();
                 newStudent.surname = generateRandomSurname();
                 newStudent.randomRez();
-                student.push_back(newStudent); // Push each student into the vector
+                student.push_back(newStudent);
             }
             break;
         case 2:
             cin.ignore();
             while (true)
             {
-                cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
-                newStudent.name = nameValidation();
+                cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
+                newStudent.name = nameValidation(nameLenght);
                 if (newStudent.name == "b")
                     break;
-                cout << "Studento pavarde (max 20)" << endl;
-                newStudent.surname = nameValidation();
+                cout << "Studento pavarde" << endl;
+                newStudent.surname = nameValidation(nameLenght);
                 newStudent.randomRez();
-                student.push_back(newStudent); // Push each student into the vector
+                student.push_back(newStudent);
             }
             break;
         case 3:
@@ -149,12 +143,12 @@ void input(auto &student)
             {
                 cin.ignore();
 
-                cout << "Studento vardas (max 20) (Iveskite 'b' norint pabaigti)" << endl;
-                newStudent.name = nameValidation();
+                cout << "Studento vardas (Iveskite 'b' norint pabaigti)" << endl;
+                newStudent.name = nameValidation(nameLenght);
                 if (newStudent.name == "b")
                     break;
-                cout << "Studento pavarde (max 20)" << endl;
-                newStudent.surname = nameValidation();
+                cout << "Studento pavarde " << endl;
+                newStudent.surname = nameValidation(nameLenght);
                 while (true)
                 {
                     cout << "Namu darbu ivertinimas (Iveskite '-1' norint pabaigti)" << endl;
@@ -178,7 +172,6 @@ void input(auto &student)
         }
     }
 
-    // Calculating final marks outside the loop
     for (auto &s : student)
     {
         s.finalMarkAverage = s.countAverage();
@@ -186,28 +179,37 @@ void input(auto &student)
     }
 }
 
-void output(auto &student, bool option)
+void output(auto &student, bool option, int nameLenght)
 {
-    if (option)
+
+    cout << setw(nameLenght) << left << "Pavardė" << setw(nameLenght) << left << "Vardas" << setw(nameLenght) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << endl;
+    cout << "---------------------------------------------------------------------" << endl;
+    for (const auto &s : student)
     {
-        cout << setw(15) << left << "Pavardė" << setw(15) << left << "Vardas" << setw(15) << left << "Galutinis (Vid.)" << endl;
-        cout << "----------------------------------------------" << endl;
-        for (int i = 0; i < student.size(); i++)
-        {
-            cout << setw(15) << left << student[i].surname << setw(15) << left << student[i].name << setw(15) << left << fixed << setprecision(2) << student[i].finalMarkAverage << endl;
-        }
-        cout << "----";
+        cout << setw(nameLenght) << left << s.surname << setw(nameLenght) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
     }
-    else
+    cout << "----";
+}
+
+void writeIntoFile(auto &student, bool option, int nameLength)
+{
+    ofstream out_f("output.txt");
+    if (!out_f.is_open())
     {
-        cout << setw(15) << left << "Pavardė" << setw(15) << left << "Vardas" << setw(15) << left << "Galutinis (Med.)" << endl;
-        cout << "----------------------------------------------" << endl;
-        for (int i = 0; i < student.size(); i++)
-        {
-            cout << setw(15) << left << student[i].surname << setw(15) << left << student[i].name << setw(15) << left << fixed << setprecision(2) << student[i].finalMarkMedian << endl;
-        }
-        cout << "----";
+        cerr << "Error: Unable to open output file." << endl;
+        return;
     }
+
+    out_f << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
+    out_f << "---------------------------------------------------------------------\n";
+
+    for (const auto &s : student)
+    {
+        out_f << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
+    }
+
+    out_f << "----";
+    out_f.close();
 }
 int options()
 {
@@ -360,20 +362,20 @@ int getBinaryInput()
     }
     return number;
 }
-string nameValidation()
+string nameValidation(int nameLenght)
 {
     string name;
     if (cin.fail())
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        return nameValidation();
+        return nameValidation(nameLenght);
     }
     getline(cin, name);
 
     while (!all_of(name.begin(), name.end(), [](unsigned char c)
                    { return isalpha(c) || (c == ' ' && !isspace(*(next(&c))) && !isspace(*(prev(&c)))); }) ||
-           name.length() > 20 || name.length() == 0 || (name.length() > 0 && name.front() == ' ') || (name.length() > 0 && name.back() == ' '))
+           name.length() > nameLenght || name.length() == 0 || (name.length() > 0 && name.front() == ' ') || (name.length() > 0 && name.back() == ' '))
     {
         cout << "Netinkama ivestis" << endl;
         getline(cin, name);
@@ -381,7 +383,7 @@ string nameValidation()
     return name;
 }
 
-void readStudentsFromFile(const string filename, auto &student)
+void readStudentsFromFile(const string filename, auto &student, int nameLenght)
 {
     ifstream file(filename);
     if (!file.is_open())
@@ -396,16 +398,16 @@ void readStudentsFromFile(const string filename, auto &student)
     while (getline(file, line))
     {
         data newStudent;
-        istringstream iss(line);
-        if (!(iss >> newStudent.name >> newStudent.surname))
-        {
-            cerr << "Error reading student name and surname from file " << filename << endl;
-            continue;
-        }
+        string namePart = line.substr(0, nameLenght);
+        string surnamePart = line.substr(nameLenght, nameLenght);
+        newStudent.name = namePart;
+        newStudent.surname = surnamePart;
+        istringstream iss(line.substr(nameLenght * 2));
         int grade;
         while (iss >> grade)
         {
             newStudent.homeWorkRez.push_back(grade);
+            newStudent.homeWorkSum += grade;
         }
 
         if (newStudent.homeWorkRez.empty())
@@ -416,7 +418,14 @@ void readStudentsFromFile(const string filename, auto &student)
 
         newStudent.egzamRez = newStudent.homeWorkRez.back();
         newStudent.homeWorkRez.pop_back();
+        newStudent.homeWorkSum -= newStudent.egzamRez;
+        newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
 
         student.push_back(newStudent);
+    }
+    for (auto &s : student)
+    {
+        s.finalMarkAverage = s.countAverage();
+        s.finalMarkMedian = s.countMedian();
     }
 }
