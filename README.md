@@ -11,3 +11,6 @@ This repo contains two files<br>
  if you want to finish inputing, on the starting screen you press 1 and then 'b',<br>
  then you get an option for your result to be counted either using you homework average score or<br>
  using your homework median, then you get an output<br>
+
+ with *vector.cpp you can input data by reading a file as well as output the data into a file<br>
+ You have an ability to sort the data by name, surname and final result<br>
