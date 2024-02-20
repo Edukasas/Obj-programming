@@ -31,31 +31,60 @@ int options();
 int getIntegerInput();
 int studentNumber();
 void writeIntoFile(auto &student, bool option, int nameLength);
+bool compareByFinalMarkAverage(const data &a, const data &b);
+bool compareByFinalMarkMedian(const data &a, const data &b);
+bool compareByName(const data &a, const data &b);
+bool compareBySurname(const data &a, const data &b);
 string nameValidation();
+void sorting(vector<data> &student, bool option);
 int main()
 {
     srand(time(nullptr));
-
+    int a;
     vector<data> student;
     string filename = "kursiokai.txt";
     int nameLength = 21;
     cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
     bool inputChoice = getBinaryInput();
-    inputChoice ? readStudentsFromFile(filename, student) : input(student); 
+    inputChoice ? readStudentsFromFile(filename, student) : input(student);
     cout << "0 - atvaizdavimas ekrane, 1 - atvaizdavimas faile" << endl;
     bool outputChoice = getBinaryInput();
     cout << "0 - skaiciuoti pagal mediana, 1 - skaiciuoti pagal vidurki" << endl;
     bool option = getBinaryInput();
-    if (outputChoice)
-    {
-        writeIntoFile(student, option, nameLength);
-    }
-    else
-    {
-        output(student, option, nameLength);
-    }
-
+    sorting(student, option);
+    outputChoice ? writeIntoFile(student, option, nameLength) : output(student, option, nameLength);
     return 0;
+}
+void sorting(vector<data> &student, bool option)
+{
+    int a;
+    bool end = false;
+    while (!end)
+    {
+        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
+        cin >> a;
+
+        switch (a)
+        {
+        case 1:
+            sort(student.begin(), student.end(), compareByName);
+            end = true;
+            break;
+        case 2:
+            sort(student.begin(), student.end(), compareBySurname);
+            end = true;
+            break;
+        case 3:
+            sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
+            end = true;
+            break;
+        default:
+            cout << "Ivestas netinkamas skaicius. Bandykite dar karta." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            break;
+        }
+    }
 }
 string generateRandomName()
 {
@@ -250,6 +279,22 @@ int options()
     }
     return number;
 }
+bool compareByName(const data &a, const data &b)
+{
+    return a.name < b.name;
+}
+bool compareBySurname(const data &a, const data &b)
+{
+    return a.surname < b.surname;
+}
+bool compareByFinalMarkMedian(const data &a, const data &b)
+{
+    return a.finalMarkMedian < b.finalMarkMedian;
+}
+bool compareByFinalMarkAverage(const data &a, const data &b)
+{
+    return a.finalMarkAverage < b.finalMarkAverage;
+}
 int studentNumber()
 {
     int number;
@@ -395,10 +440,10 @@ void readStudentsFromFile(const string filename, auto &student)
     string line;
     getline(file, line);
 
-       while (getline(file, line))
+    while (getline(file, line))
     {
         data newStudent;
-               istringstream iss(line);
+        istringstream iss(line);
         if (!(iss >> newStudent.name >> newStudent.surname))
         {
             cerr << "Error reading student name and surname from file " << filename << endl;
