@@ -14,3 +14,15 @@ This repo contains two files<br>
 
  with *vector.cpp you can input data by reading a file as well as output the data into a file<br>
  You have an ability to sort the data by name, surname and final result<br>
+ I have read and outputed 3 files, first file was composed of <b>10,000</b> objects, second - <b>100,000</b>, third - <b>1,000,000</b> <br>
+ ### first file took on average: <br>
+ <b>0.224</b> secs to read <br> 
+ <b>0.057</b> to output<br>
+ ### second file took on average: <br>
+ <b>2.57</b> secs to read <br>
+ <b>0.54</b> to output<br>
+ ### third file took on average: <br>
+ <b>14.23</b> secs to read <br>
+ <b>6.93</b> to output<br>
+ 
+ 
