@@ -7,7 +7,6 @@
 #include <ctime>
 #include <chrono>
 using namespace std;
-
 struct data
 {
     string name;
