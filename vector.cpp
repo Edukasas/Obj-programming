@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
+#include <chrono>
 using namespace std;
 
 struct data
@@ -42,7 +43,7 @@ int main()
     srand(time(nullptr));
     int a;
     vector<data> student;
-    string filename = "kursiokai.txt";
+    string filename = "studentai1000000.txt";
     int nameLength = 21;
     cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
     bool inputChoice = getBinaryInput();
@@ -219,6 +220,7 @@ void output(auto &student, bool option, int nameLength)
 
 void writeIntoFile(auto &student, bool option, int nameLength)
 {
+    auto start = chrono::high_resolution_clock::now(); 
     ofstream out_f("output.txt");
     if (!out_f.is_open())
     {
@@ -236,6 +238,9 @@ void writeIntoFile(auto &student, bool option, int nameLength)
 
     out_f << "----";
     out_f.close();
+    auto end = chrono::high_resolution_clock::now(); 
+    chrono::duration<double> diff = end-start;
+    cout<<diff.count()<<endl; 
 }
 int options()
 {
@@ -423,6 +428,7 @@ string nameValidation()
 
 void readStudentsFromFile(const string filename, auto &student)
 {
+    auto start = chrono::high_resolution_clock::now(); 
     ifstream file(filename);
     if (!file.is_open())
     {
@@ -467,4 +473,7 @@ void readStudentsFromFile(const string filename, auto &student)
         s.finalMarkAverage = s.countAverage();
         s.finalMarkMedian = s.countMedian();
     }
+    auto end = chrono::high_resolution_clock::now();
+    chrono::duration<double> diff = end-start;
+    cout<<diff.count()<<endl; 
 }
