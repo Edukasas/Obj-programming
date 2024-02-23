@@ -42,7 +42,7 @@ int main()
     srand(time(nullptr));
     int a;
     vector<data> student;
-    string filename = "studentai1000000.txt";
+    string filename = "kursiokai.txt";
     int nameLength = 21;
     cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
     bool inputChoice = getBinaryInput();
@@ -442,7 +442,7 @@ void readStudentsFromFile(const string filename, auto &student)
     {
         data newStudent;
                istringstream iss(line);
-        if (!(iss >> newStudent.name >> newStudent.surname))
+        if (!(iss >> newStudent.name >> newStudent.surname) || newStudent.name.length() < 2 || newStudent.surname.length() < 2)
         {
             cerr << "Error reading student name and surname from file " << filename << endl;
             continue;
