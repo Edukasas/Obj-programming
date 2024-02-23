@@ -77,6 +77,7 @@ void input(vector<data> &student)
     data newStudent;
     int workMethods = 0, studentCount;
     string name;
+    try{
     while (workMethods != 4)
     {
         cout << "Pasirinkimai 1 - random vardas/pavarde ir pazymiai, 2 - random pazymiai, 3 - ranka ivesti duomenys, 4 - atvaizduoti" << endl;
@@ -149,7 +150,9 @@ void input(vector<data> &student)
         s.finalMarkMedian = s.countMedian();
     }
     }
-    
+    catch (const std::exception& e) {
+        cerr << "Error: Netiketa problema ivestyje" << endl;
+    }
 }
 
 void output(vector<data> &student, bool option, int nameLength)
@@ -185,7 +188,7 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
     out_f.close();
     }
     catch (const std::exception& e) {
-        cerr << "Error: Netiketa problema" << endl;
+        cerr << "Error: Netiketa problema irasant faila" << endl;
     }
 }
 int options()
@@ -421,6 +424,6 @@ void readStudentsFromFile(const string filename, vector<data> &student)
     }
     catch(const std::exception &ex)
     {
-        cerr << "Error: Atsitiko nenumatyta klaida" << endl;
+        cerr << "Error: Atsitiko nenumatyta klaida nuskaitant faila "<< filename << endl;
     }
 }
