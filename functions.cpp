@@ -77,7 +77,6 @@ void input(vector<data> &student)
     data newStudent;
     int workMethods = 0, studentCount;
     string name;
-
     while (workMethods != 4)
     {
         cout << "Pasirinkimai 1 - random vardas/pavarde ir pazymiai, 2 - random pazymiai, 3 - ranka ivesti duomenys, 4 - atvaizduoti" << endl;
@@ -149,6 +148,8 @@ void input(vector<data> &student)
         s.finalMarkAverage = s.countAverage();
         s.finalMarkMedian = s.countMedian();
     }
+    }
+    
 }
 
 void output(vector<data> &student, bool option, int nameLength)
@@ -171,7 +172,6 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
         cerr << "Error: Unable to open output file." << endl;
         return;
     }
-
     out_f << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
     out_f << "---------------------------------------------------------------------\n";
 
@@ -372,10 +372,10 @@ void readStudentsFromFile(const string filename, vector<data> &student)
     ifstream file(filename);
     if (!file.is_open())
     {
-        cerr << "Error: Unable to open file " << filename << endl;
+        cerr << "Error: Neisejo atidaryti failo " << filename << endl;
         return;
     }
-
+    try {
     string line;
     getline(file, line);
 
@@ -385,7 +385,7 @@ void readStudentsFromFile(const string filename, vector<data> &student)
                istringstream iss(line);
         if (!(iss >> newStudent.name >> newStudent.surname) || newStudent.name.length() < 2 || newStudent.surname.length() < 2)
         {
-            cerr << "Error reading student name and surname from file " << filename << endl;
+            cerr << "Error: Nepavyko nuskaityti studento vardo ir pavardes " << filename << endl;
             continue;
         }
         int grade;
@@ -397,7 +397,7 @@ void readStudentsFromFile(const string filename, vector<data> &student)
 
         if (newStudent.homeWorkRez.empty())
         {
-            cerr << "Error: No grades found for student in file " << filename << endl;
+            cerr << "Error: Namu darbu rezultato nera " << filename << endl;
             continue;
         }
 
@@ -412,5 +412,10 @@ void readStudentsFromFile(const string filename, vector<data> &student)
     {
         s.finalMarkAverage = s.countAverage();
         s.finalMarkMedian = s.countMedian();
+    }
+    }
+    catch(const std::exception &ex)
+    {
+        cerr << "Error: Atsitiko nenumatyta klaida" << endl;
     }
 }
