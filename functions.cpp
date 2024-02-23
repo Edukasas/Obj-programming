@@ -166,6 +166,7 @@ void output(vector<data> &student, bool option, int nameLength)
 
 void writeIntoFile(vector<data> &student, bool option, int nameLength)
 {
+    try{
     ofstream out_f("output.txt");
     if (!out_f.is_open())
     {
@@ -182,6 +183,10 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
 
     out_f << "----";
     out_f.close();
+    }
+    catch (const std::exception& e) {
+        cerr << "Error: Netiketa problema" << endl;
+    }
 }
 int options()
 {
