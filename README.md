@@ -23,6 +23,7 @@ This repo contains two files<br>
  <b>0.54</b> to output<br>
  ### third file took on average: <br>
  <b>14.23</b> secs to read <br>
- <b>6.93</b> to output<br>
+ <b>6.93</b> to output<br><br>
+ There is an implementation of try/catch error handling as well as three new files containing functions/headers/libraries of original vector.cpp
  
  
