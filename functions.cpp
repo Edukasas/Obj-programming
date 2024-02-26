@@ -10,11 +10,11 @@ void sorting(vector<data>& student, bool option) {
 
         switch (a) {
             case 1:
-                sort(student.begin(), student.end(), compareByName);
+                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
                 end = true;
                 break;
             case 2:
-                sort(student.begin(), student.end(), compareBySurname);
+                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareBySurname(a, b, option); });
                 end = true;
                 break;
             case 3:
@@ -103,17 +103,43 @@ int options()
     }
     return number;
 }
-bool compareByName(const data& a, const data& b) {
-    return a.name < b.name;
+bool compareByName(const data& a, const data& b, bool option) {
+        if (a.name != b.name) {
+            return a.name < b.name;
+        } else if(a.surname != b.surname) {
+            return a.surname < b.surname;
+        } else {
+            return option ?  a.finalMarkAverage < b.finalMarkAverage :  a.finalMarkMedian < b.finalMarkMedian;
+        }
 }
-bool compareBySurname(const data& a, const data& b) {
-    return a.surname < b.surname;
+bool compareBySurname(const data& a, const data& b, bool option) {
+        if (a.surname != b.surname) {
+            return a.surname < b.surname; 
+        } else if(a.name != b.name) {
+            return a.name < b.name;
+        } else {
+            return option ?  a.finalMarkAverage < b.finalMarkAverage :  a.finalMarkMedian < b.finalMarkMedian;
+        }
 }
 bool compareByFinalMarkMedian(const data& a, const data& b) {
-    return a.finalMarkMedian < b.finalMarkMedian;
+        if (a.finalMarkMedian != b.finalMarkMedian) {
+            return a.finalMarkMedian < b.finalMarkMedian;
+        } else if (a.surname != b.surname) {
+            return a.surname < b.surname;
+        }
+        else if (a.name != b.name) {
+            return a.name < b.name;
+        }
 }
 bool compareByFinalMarkAverage(const data& a, const data& b) {
-    return a.finalMarkAverage < b.finalMarkAverage;
+        if (a.finalMarkAverage != b.finalMarkAverage) {
+            return a.finalMarkAverage < b.finalMarkAverage; 
+        } else if (a.surname != b.surname) {
+            return a.surname < b.surname;
+        }
+        else if (a.name != b.name) {
+            return a.name < b.name;
+        }
 }
 int studentNumber()
 {
