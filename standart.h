@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>
+#include <stdexcept>
 
 using std::endl;
 using std::cin;
@@ -34,5 +35,6 @@ using std::isalpha;
 using std::isspace;
 using std::next;
 using std::prev;
-
-#endif /* COMMON_HPP */
+using std::runtime_error;
+using std::invalid_argument;
+#endif
