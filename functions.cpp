@@ -31,6 +31,8 @@ void sorting(vector<data>& student, bool option) {
 }
 void data::randomRez()
 {
+    homeWorkSum = 0;
+    homeWorkRez.clear();
     int randomNumberOfHomeWork = rand() % 100 + 1;
     int help = rand() % 10 + 1;
     egzamRez = help;
