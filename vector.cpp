@@ -7,6 +7,7 @@ int main()
     vector<data> student;
     string filename;
     int nameLength = 21;
+    generateFile(nameLength);
     cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
     bool inputChoice = getBinaryInput();
     inputChoice ? readStudentsFromFile(filename, student) : input(student);
