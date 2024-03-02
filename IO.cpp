@@ -179,11 +179,6 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
     try
     {
         ofstream out_f("output.txt");
-        if (!out_f.is_open())
-        {
-            cerr << "Error: Neiseina atidaryti failo" << endl;
-            return;
-        }
         std::ostringstream buffer;
         buffer << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
         buffer << "---------------------------------------------------------------------\n";
