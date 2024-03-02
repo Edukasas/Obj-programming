@@ -12,6 +12,8 @@
 #include <ctime>
 #include <limits>
 #include <stdexcept>
+#include <random>
+#include <chrono>
 
 using std::endl;
 using std::cin;
@@ -37,4 +39,7 @@ using std::next;
 using std::prev;
 using std::runtime_error;
 using std::invalid_argument;
+using std::random_device; 
+using std::mt19937; 
+using std::uniform_int_distribution; 
 #endif
