@@ -36,6 +36,10 @@ using std::isalpha;
 using std::isspace;
 using std::next;
 using std::prev;
+using std::to_string;
+using std::isdigit;
+using std::stoi;
 using std::runtime_error;
 using std::invalid_argument;
+using std::exception;
 #endif
