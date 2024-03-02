@@ -85,10 +85,8 @@ int options()
             stringstream ss(input);
             if (ss >> number && ss.eof())
             {
-                // Input is a valid integer
                 if (number > 0 && number < 5)
                 {
-                    // Number is greater than 0
                     break;
                 }
                 else

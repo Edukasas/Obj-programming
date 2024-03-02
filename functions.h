@@ -19,7 +19,7 @@ struct data
     void randomRez();
 };
 void input(vector<data>& student);
-void readStudentsFromFile(const string filename, vector<data>& student);
+void readStudentsFromFile(string &filename, vector<data>& student);
 void output(vector<data>& student, bool option, int nameLength);
 int getBinaryInput();
 int options();
