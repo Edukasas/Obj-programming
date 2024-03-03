@@ -124,7 +124,6 @@ void readStudentsFromFile(string &filename, vector<data> &student)
     string line;
     int lineNumber = 0;
     getline(file, line);
-
     while (getline(file, line))
     {
         lineNumber++;
@@ -152,7 +151,6 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         newStudent.homeWorkRez.pop_back();
         newStudent.homeWorkSum -= newStudent.egzamRez;
         newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
-
         student.push_back(newStudent);
     }
     for (auto &s : student)
@@ -179,17 +177,15 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
     try
     {
         ofstream out_f("output.txt");
-        std::ostringstream buffer;
-        buffer << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
-        buffer << "---------------------------------------------------------------------\n";
+        out_f << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
+        out_f << "---------------------------------------------------------------------\n";
 
         for (const auto &s : student)
         {
-            buffer << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
+            out_f << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
         }
 
-        buffer << "----";
-        out_f << buffer.str();
+        out_f << "----";
         out_f.close();
     }
     catch (const std::exception &e)
