@@ -18,6 +18,7 @@ struct data
     double countAverage();
     void randomRez();
 };
+void topSection(vector<data> &student, int nameLenght, string filename);
 bool isNumeric(const string &str);
 void generateFile(int nameLength);
 void input(vector<data>& student);
