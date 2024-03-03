@@ -7,10 +7,8 @@ int main()
     vector<data> student;
     string filename;
     int nameLength = 21;
-    generateFile(nameLength);
-    cout << "0 - Ivestis per ekrana, 1 - Ivestis per faila" << endl;
-    bool inputChoice = getBinaryInput();
-    inputChoice ? readStudentsFromFile(filename, student) : input(student);
+    
+    topSection(student, nameLength, filename);
     cout << "0 - atvaizdavimas ekrane, 1 - atvaizdavimas faile" << endl;
     bool outputChoice = getBinaryInput();
     cout << "0 - skaiciuoti pagal mediana, 1 - skaiciuoti pagal vidurki" << endl;
