@@ -42,7 +42,7 @@ void generateFile(int nameLength)
             }
             out_f << setw(6) << left << "Egz\n";
 
-            for (int i = 1; i < n; i++)
+            for (int i = 1; i <= n; i++)
             {
                 int help;
 
