@@ -42,4 +42,5 @@ using std::stoi;
 using std::runtime_error;
 using std::invalid_argument;
 using std::exception;
+using std::bad_alloc;
 #endif

@@ -93,13 +93,15 @@ void input(vector<data> &student)
 }
 void readStudentsFromFile(string &filename, vector<data> &student)
 {
+    student.reserve(10000000);
     ifstream file(filename);
     while (true)
     {
         try
         {
-            cout << "Iveskite failo pavadinima: ";
-            cin >> filename;
+           // cout << "Iveskite failo pavadinima: ";
+           // cin >> filename;
+           filename = "10000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -118,6 +120,9 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         catch (const runtime_error &ex)
         {
             cerr << "Error:  " << ex.what() << endl;
+        }
+        catch (const bad_alloc &ex) {
+            cerr << "Error: atmintis uzsilenke" << ex.what() << endl;
         }
     }
 

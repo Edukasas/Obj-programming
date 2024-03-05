@@ -5,6 +5,7 @@ void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& bad
  {
     int a;
     bool end = false;
+    try{
     while (!end) {
         cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
         cin >> a;
@@ -35,6 +36,9 @@ void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& bad
         } else {
             badStudent.push_back(s);
         }
+    }}
+    catch (const bad_alloc) {
+        cerr << "Error: atmintis uzsilenke" << endl;
     }
 }
 void data::randomRez()
