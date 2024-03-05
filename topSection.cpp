@@ -11,7 +11,7 @@ void topSection(vector<data> &student, int nameLenght, string filename)
             cin >> a_str;
             if (!isNumeric(a_str))
             {
-                throw invalid_argument("Invalid input for 'n'");
+                throw invalid_argument("Netinkama ivestis");
             }
             int a = stoi(a_str);
             if (a == 0){
@@ -22,8 +22,8 @@ void topSection(vector<data> &student, int nameLenght, string filename)
             readStudentsFromFile(filename, student);
             break;
             }
-            // else if (a == 2)
-            //     generateFile(nameLenght);
+            else if (a == 2)
+                generateFile(nameLenght);
             else
                 throw invalid_argument("Netinkama ivestis");
         }

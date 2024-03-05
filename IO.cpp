@@ -172,11 +172,11 @@ void output(vector<data> &student, bool option, int nameLength)
     cout << "----";
 }
 
-void writeIntoFile(vector<data> &student, bool option, int nameLength)
+void writeIntoFile(vector<data> &student, bool option, int nameLength, string filename)
 {
     try
     {
-        ofstream out_f("output.txt");
+        ofstream out_f(filename);
         out_f << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
         out_f << "---------------------------------------------------------------------\n";
 
@@ -188,8 +188,8 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength)
         out_f << "----";
         out_f.close();
     }
-    catch (const std::exception &e)
+    catch (const std::exception &ex)
     {
-        cerr << "Error: Netiketa problema irasant faila" << endl;
+        cerr << "Error:" << ex.what() << endl;
     }
 }

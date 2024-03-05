@@ -28,11 +28,11 @@ int getBinaryInput();
 int options();
 int getIntegerInput();
 int studentNumber();
-void writeIntoFile(vector<data>& student, bool option, int nameLength);
+void writeIntoFile(vector<data>& student, bool option, int nameLength, string filename);
 bool compareByFinalMarkAverage(const data& a, const data& b);
 bool compareByFinalMarkMedian(const data& a, const data& b);
 bool compareByName(const data& a, const data& b, bool option);
 bool compareBySurname(const data& a, const data& b, bool option);
 string nameValidation();
-void sorting(vector<data>& student, bool option);
+void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& badStudent, bool option);
 #endif
