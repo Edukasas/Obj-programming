@@ -86,9 +86,9 @@ void input(vector<data> &student)
             s.finalMarkMedian = s.countMedian();
         }
     }
-    catch (const std::exception &e)
+    catch (const std::exception &ex)
     {
-        cerr << "Error: Netiketa problema ivestyje" << endl;
+        cerr << "Error: " << ex.what() << endl;
     }
 }
 void readStudentsFromFile(string &filename, vector<data> &student)
@@ -113,11 +113,11 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         }
         catch (const invalid_argument &ex)
         {
-            cerr << "Error: Netinkamas argumentas: " << ex.what() << endl;
+            cerr << "Error: " << ex.what() << endl;
         }
         catch (const runtime_error &ex)
         {
-            cerr << "Error: Nera tokio failo: " << ex.what() << endl;
+            cerr << "Error:  " << ex.what() << endl;
         }
     }
 
