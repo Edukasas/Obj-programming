@@ -91,18 +91,16 @@ void input(vector<data> &student)
         cerr << "Error: " << ex.what() << endl;
     }
 }
-void readStudentsFromFile(string &filename, vector<data> &student, bool option, int nameLength, int &fileIndex)
+void readStudentsFromFile(string &filename, vector<data> &student, bool option, int nameLength, int &fileIndex, int &choice)
 {
-    int a = parameterForSorting();
-    student.reserve(1000000);
+    student.reserve(1000);
     ifstream file(filename);
     while (true)
     {
         try
         {
-           // cout << "Iveskite failo pavadinima: ";
-           // cin >> filename;
-           filename = "10000000";
+           cout << "Iveskite failo pavadinima: ";
+           cin >> filename;
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -123,10 +121,9 @@ void readStudentsFromFile(string &filename, vector<data> &student, bool option, 
             cerr << "Error:  " << ex.what() << endl;
         }
         catch (const bad_alloc &ex) {
-            cerr << "Error: atmintis uzsilenke" << ex.what() << endl;
+            cerr << "Error: atmintis uzsilenke" << endl;
         }
     }
-
     string line;
     fileIndex = 0;
     getline(file, line);
@@ -146,27 +143,25 @@ void readStudentsFromFile(string &filename, vector<data> &student, bool option, 
             newStudent.homeWorkRez.push_back(grade);
             newStudent.homeWorkSum += grade;
         }
-
-        if (newStudent.homeWorkRez.empty())
-        {
-            cerr << "Error: Namu darbu rezultato nera " << student.size() << endl;
-            continue;
-        }
-
         newStudent.egzamRez = newStudent.homeWorkRez.back();
         newStudent.homeWorkRez.pop_back();
         newStudent.homeWorkSum -= newStudent.egzamRez;
         newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+        if (newStudent.homeWorkRez.empty() && (newStudent.egzamRez < 0 || newStudent.egzamRez > 10))
+        {
+            cerr << "Error: Namu darbu rezultato nera " << student.size() << endl;
+            continue;
+        }
         double rez = option ? newStudent.finalMarkAverage = newStudent.countAverage() : newStudent.finalMarkMedian = newStudent.countMedian();
         student.push_back(newStudent);
         if (student.size() == STUDENT_SIZE) {
-            sorting(student, option, a);
+            sorting(student, option, choice);
             sortAndWriteChunk(student, fileIndex / STUDENT_SIZE, option, nameLength);
             student.clear();
         }
     }
     if (!student.empty()) {
-        sorting(student, option, a);
+        sorting(student, option, choice);
         sortAndWriteChunk(student, fileIndex / STUDENT_SIZE + 1, option, nameLength);
         student.clear();
     }
@@ -184,7 +179,6 @@ void output(vector<data> &student, bool option, int nameLength)
     }
     cout << "----";
 }
-
 void writeIntoFile(vector<data> &student, bool option, int nameLength, string filename)
 {
     try
@@ -205,50 +199,4 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength, string fi
     {
         cerr << "Error:" << ex.what() << endl;
     }
-}
-
-void readAndWrite(bool option, int nameLength) {
-    // Open the output files for writing
-    ofstream out_f("vargsiukai"), out_w("kietakai");
-    if (!out_f || !out_w) {
-        cerr << "Error: Failed to open output files." << endl;
-        return;
-    }
-
-    // Open the input file for reading
-    string filename = "output";
-    ifstream file(filename);
-    if (!file) {
-        cerr << "Error: Failed to open file " << filename << endl;
-        return;
-    }
-    string line;
-    getline(file, line);
-    out_f<<line<<endl;
-    out_w<<line<<endl;
-    getline(file, line);
-    out_f<<line<<endl;
-    out_w<<line<<endl;
-    data newStudent;
-    double a = option ? newStudent.finalMarkAverage : newStudent.finalMarkMedian;
-    // Read data from input file and write to output files
-    try {
-        while (getline(file, line)) {
-            istringstream iss(line);
-            iss >> newStudent.name >> newStudent.surname >> a;
-            if (a < 5)
-                out_f << setw(nameLength) << left << newStudent.surname << setw(nameLength) << left << newStudent.name << setprecision(3) << left << (a) << '\n';
-            else
-                out_w << setw(nameLength) << left << newStudent.surname << setw(nameLength) << left << newStudent.name << setprecision(3) << left << (a) << '\n';
-        }
-    }
-    catch (const runtime_error &ex) {
-        cerr << "Error: " << ex.what() << endl;
-    }
-    catch (const bad_alloc &ex) {
-        cerr << "Error: Memory allocation failed" << ex.what() << endl;
-    }
-
-    out_f.close();
-    out_w.close();
 }

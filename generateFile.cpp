@@ -21,7 +21,7 @@ void generateFile(int nameLength)
 
             if (!isNumeric(n_str))
             {
-                throw invalid_argument("Invalid input for 'n'");
+                throw invalid_argument("Netinkama ivestis");
             }
 
             int n = stoi(n_str);

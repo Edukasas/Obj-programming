@@ -1,45 +1,6 @@
 #include "functions.h"
 vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
 vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-int parameterForSorting(){
-    int n;
-        while(true){
-            try{
-            string n_str;
-            cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
-            cin >> n_str;
-
-            if (!isNumeric(n_str))
-            {
-                throw invalid_argument("Invalid input for 'n'");
-            }
-
-            n = stoi(n_str);
-            if(n<1 || n>3){
-                throw invalid_argument("Invalid input for 'n");
-            }
-            break;
-            }
-            catch (const exception &e)
-        {
-            cerr << "Error: " << e.what() << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        }
-        }
-        return n;
-}
-void sorting(vector<data>& student, bool option, int a)
- {
-        switch (a) {
-            case 1:
-                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
-            case 2:
-                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareBySurname(a, b, option); });
-            case 3:
-                sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
-                }
- }
 void data::randomRez()
 {
     homeWorkSum = 0;
@@ -57,7 +18,9 @@ void data::randomRez()
 }
 double data::countAverage()
 {
-    return 0.4 * homeWorkSum + egzamRez * 0.6;
+    int n = homeWorkRez.size();
+    if(n>0) return 0.4 * homeWorkSum + egzamRez * 0.6;
+    else return egzamRez * 0.6;
 }
 double data::countMedian()
 {
@@ -216,10 +179,8 @@ int getIntegerInput()
             stringstream ss(input);
             if (ss >> number && ss.eof())
             {
-                // Input is a valid integer
                 if (number > 0 && number <= 10)
                 {
-                    // Number is greater than 0
                     break;
                 }
                 else
@@ -244,10 +205,8 @@ int getBinaryInput()
         stringstream ss(input);
         if (ss >> number && ss.eof())
         {
-            // Input is a valid integer
             if (number == 0 || number == 1)
             {
-                // Number is either 0 or 1
                 break;
             }
             else
