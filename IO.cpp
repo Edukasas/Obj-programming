@@ -93,7 +93,7 @@ void input(vector<data> &student)
 }
 void readStudentsFromFile(string &filename, vector<data> &student)
 {
-    student.reserve(10000000);
+    student.reserve(1000000);
     ifstream file(filename);
     while (true)
     {
@@ -101,7 +101,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         {
            // cout << "Iveskite failo pavadinima: ";
            // cin >> filename;
-           filename = "10000000";
+           filename = "1000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -197,4 +197,50 @@ void writeIntoFile(vector<data> &student, bool option, int nameLength, string fi
     {
         cerr << "Error:" << ex.what() << endl;
     }
+}
+
+void readAndWrite(bool option, int nameLength) {
+    // Open the output files for writing
+    ofstream out_f("vargsiukai"), out_w("kietakai");
+    if (!out_f || !out_w) {
+        cerr << "Error: Failed to open output files." << endl;
+        return;
+    }
+
+    // Open the input file for reading
+    string filename = "output";
+    ifstream file(filename);
+    if (!file) {
+        cerr << "Error: Failed to open file " << filename << endl;
+        return;
+    }
+    string line;
+    getline(file, line);
+    out_f<<line<<endl;
+    out_w<<line<<endl;
+    getline(file, line);
+    out_f<<line<<endl;
+    out_w<<line<<endl;
+    data newStudent;
+    double a = option ? newStudent.finalMarkAverage : newStudent.finalMarkMedian;
+    // Read data from input file and write to output files
+    try {
+        while (getline(file, line)) {
+            istringstream iss(line);
+            iss >> newStudent.name >> newStudent.surname >> a;
+            if (a < 5)
+                out_f << setw(nameLength) << left << newStudent.surname << setw(nameLength) << left << newStudent.name << setprecision(3) << left << (a) << '\n';
+            else
+                out_w << setw(nameLength) << left << newStudent.surname << setw(nameLength) << left << newStudent.name << setprecision(3) << left << (a) << '\n';
+        }
+    }
+    catch (const runtime_error &ex) {
+        cerr << "Error: " << ex.what() << endl;
+    }
+    catch (const bad_alloc &ex) {
+        cerr << "Error: Memory allocation failed" << ex.what() << endl;
+    }
+
+    out_f.close();
+    out_w.close();
 }

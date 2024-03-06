@@ -34,5 +34,6 @@ bool compareByFinalMarkMedian(const data& a, const data& b);
 bool compareByName(const data& a, const data& b, bool option);
 bool compareBySurname(const data& a, const data& b, bool option);
 string nameValidation();
-void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& badStudent, bool option);
+void sorting(vector<data>& student, bool option);
+void readAndWrite(bool option, int nameLength);
 #endif

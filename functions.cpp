@@ -1,7 +1,7 @@
 #include "functions.h"
 vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
 vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& badStudent, bool option)
+void sorting(vector<data>& student, bool option)
  {
     int a;
     bool end = false;
@@ -30,13 +30,7 @@ void sorting(vector<data>& student, vector<data>& goodStudent, vector<data>& bad
                 break;
         }
     }
-        for (const auto& s : student) {
-        if ((option && s.finalMarkAverage >= 5) || (!option && s.finalMarkMedian >= 5)) {
-            goodStudent.push_back(s);
-        } else {
-            badStudent.push_back(s);
-        }
-    }}
+    }
     catch (const bad_alloc) {
         cerr << "Error: atmintis uzsilenke" << endl;
     }
