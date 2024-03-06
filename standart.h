@@ -14,6 +14,8 @@
 #include <stdexcept>
 #include <chrono>
 
+const int STUDENT_SIZE = 1000000;
+
 using std::endl;
 using std::cin;
 using std::cout;

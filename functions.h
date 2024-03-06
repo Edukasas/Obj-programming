@@ -8,21 +8,24 @@ struct data
 {
     string name;
     string surname;
+    double finalMarkAverage;
     vector<string> splited;
     int egzamRez;
     vector<int> homeWorkRez;
     double homeWorkSum = 0;
-    double finalMarkAverage;
     double finalMarkMedian;
     double countMedian();
     double countAverage();
     void randomRez();
 };
-void topSection(vector<data> &student, int nameLenght, string filename);
+int parameterForSorting();
+void mergeRuns(vector<ifstream>& infiles, bool option, int nameLength);
+void sortAndWriteChunk(vector<data>& student, int fileIndex, bool option, int nameLength);
+void topSection(vector<data> &student, int nameLength, string filename, bool &option, int &fileIndex);
 bool isNumeric(const string &str);
 void generateFile(int nameLength);
 void input(vector<data>& student);
-void readStudentsFromFile(string &filename, vector<data>& student);
+void readStudentsFromFile(string &filename, vector<data>& student, bool option, int nameLength, int &fileIndex);
 void output(vector<data>& student, bool option, int nameLength);
 int getBinaryInput();
 int options();
@@ -34,6 +37,7 @@ bool compareByFinalMarkMedian(const data& a, const data& b);
 bool compareByName(const data& a, const data& b, bool option);
 bool compareBySurname(const data& a, const data& b, bool option);
 string nameValidation();
-void sorting(vector<data>& student, bool option);
+void sorting(vector<data>& student, bool option, int a);
 void readAndWrite(bool option, int nameLength);
+void bigMerge(int fileIndex, bool option, int nameLength);
 #endif

@@ -91,8 +91,9 @@ void input(vector<data> &student)
         cerr << "Error: " << ex.what() << endl;
     }
 }
-void readStudentsFromFile(string &filename, vector<data> &student)
+void readStudentsFromFile(string &filename, vector<data> &student, bool option, int nameLength, int &fileIndex)
 {
+    int a = parameterForSorting();
     student.reserve(1000000);
     ifstream file(filename);
     while (true)
@@ -101,7 +102,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         {
            // cout << "Iveskite failo pavadinima: ";
            // cin >> filename;
-           filename = "1000000";
+           filename = "10000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -127,16 +128,16 @@ void readStudentsFromFile(string &filename, vector<data> &student)
     }
 
     string line;
-    int lineNumber = 0;
+    fileIndex = 0;
     getline(file, line);
     while (getline(file, line))
     {
-        lineNumber++;
+        fileIndex++;
         data newStudent;
         istringstream iss(line);
         if (!(iss >> newStudent.name >> newStudent.surname) || newStudent.name.length() < 2 || newStudent.surname.length() < 2)
         {
-            cerr << "Error: Nepavyko nuskaityti studento vardo ir pavardes " << lineNumber << " eilute" << endl;
+            cerr << "Error: Nepavyko nuskaityti studento vardo ir pavardes " << student.size() << " eilute" << endl;
             continue;
         }
         int grade;
@@ -148,7 +149,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
 
         if (newStudent.homeWorkRez.empty())
         {
-            cerr << "Error: Namu darbu rezultato nera " << lineNumber << endl;
+            cerr << "Error: Namu darbu rezultato nera " << student.size() << endl;
             continue;
         }
 
@@ -156,13 +157,20 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         newStudent.homeWorkRez.pop_back();
         newStudent.homeWorkSum -= newStudent.egzamRez;
         newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
+        double rez = option ? newStudent.finalMarkAverage = newStudent.countAverage() : newStudent.finalMarkMedian = newStudent.countMedian();
         student.push_back(newStudent);
+        if (student.size() == STUDENT_SIZE) {
+            sorting(student, option, a);
+            sortAndWriteChunk(student, fileIndex / STUDENT_SIZE, option, nameLength);
+            student.clear();
+        }
     }
-    for (auto &s : student)
-    {
-        s.finalMarkAverage = s.countAverage();
-        s.finalMarkMedian = s.countMedian();
+    if (!student.empty()) {
+        sorting(student, option, a);
+        sortAndWriteChunk(student, fileIndex / STUDENT_SIZE + 1, option, nameLength);
+        student.clear();
     }
+    file.close();
 }
 
 void output(vector<data> &student, bool option, int nameLength)

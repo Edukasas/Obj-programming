@@ -1,40 +1,45 @@
 #include "functions.h"
 vector<string> names = {"John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella"};
 vector<string> surnames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-void sorting(vector<data>& student, bool option)
- {
-    int a;
-    bool end = false;
-    try{
-    while (!end) {
-        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
-        cin >> a;
+int parameterForSorting(){
+    int n;
+        while(true){
+            try{
+            string n_str;
+            cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
+            cin >> n_str;
 
+            if (!isNumeric(n_str))
+            {
+                throw invalid_argument("Invalid input for 'n'");
+            }
+
+            n = stoi(n_str);
+            if(n<1 || n>3){
+                throw invalid_argument("Invalid input for 'n");
+            }
+            break;
+            }
+            catch (const exception &e)
+        {
+            cerr << "Error: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        }
+        return n;
+}
+void sorting(vector<data>& student, bool option, int a)
+ {
         switch (a) {
             case 1:
                 sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
-                end = true;
-                break;
             case 2:
                 sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareBySurname(a, b, option); });
-                end = true;
-                break;
             case 3:
                 sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
-                end = true;
-                break;
-            default:
-                cout << "Ivestas netinkamas skaicius. Bandykite dar karta." << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                break;
-        }
-    }
-    }
-    catch (const bad_alloc) {
-        cerr << "Error: atmintis uzsilenke" << endl;
-    }
-}
+                }
+ }
 void data::randomRez()
 {
     homeWorkSum = 0;
