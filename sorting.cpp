@@ -181,10 +181,13 @@ void sorting(vector<data> &student, bool option, int a)
     case 1:
         sort(student.begin(), student.end(), [option](const data &a, const data &b)
              { return compareByName(a, b, option); });
+             break;
     case 2:
         sort(student.begin(), student.end(), [option](const data &a, const data &b)
              { return compareBySurname(a, b, option); });
+             break;
     case 3:
         sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
+        break;
     }
 }
