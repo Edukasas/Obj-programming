@@ -44,9 +44,9 @@ void sorting(vector<data>& student, bool option) {
     int a;
     bool end = false;
     while (!end) {
-        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
-        cin >> a;
-
+        // cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
+        // cin >> a;
+        a = 3;
         switch (a) {
             case 1:
                 sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
