@@ -7,7 +7,7 @@ string generateRandomSurname()
 {
     return surnames[rand() % surnames.size()];
 }
-void input(vector<data> &student)
+void input(list<data> &student)
 {
     data newStudent;
     int workMethods = 0, studentCount;
@@ -91,15 +91,16 @@ void input(vector<data> &student)
         cerr << "Error: Netiketa problema ivestyje" << endl;
     }
 }
-void readStudentsFromFile(string &filename, vector<data> &student)
+void readStudentsFromFile(string &filename, list<data> &student)
 {
     ifstream file(filename);
     while (true)
     {
         try
         {
-            cout << "Iveskite failo pavadinima: ";
-            cin >> filename;
+            // cout << "Iveskite failo pavadinima: ";
+            // cin >> filename;
+            filename = "1000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -162,7 +163,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
 }
 
 
-void output(vector<data> &student, bool option, int nameLength)
+void output(list<data> &student, bool option, int nameLength)
 {
 
     cout << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(nameLength) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << endl;
@@ -174,7 +175,7 @@ void output(vector<data> &student, bool option, int nameLength)
     cout << "----";
 }
 
-void writeIntoFile(vector<data> &student, bool option, int nameLength, string filename)
+void writeIntoFile(list<data> &student, bool option, int nameLength, string filename)
 {
     try
     {

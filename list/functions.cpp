@@ -40,39 +40,41 @@ double data::countMedian()
     else
         return egzamRez * 0.6;
 }
-void sorting(vector<data>& student, bool option) {
+void sorting(list<data>& student, bool option) {
     int a;
     bool end = false;
     while (!end) {
-        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
-        cin >> a;
-
+        // cout << "1 - sort by name, 2 - sort by surname, 3 - sort by final mark" << endl;
+        // cin >> a;
+        a = 3;
         switch (a) {
             case 1:
-                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
+                student.sort([option](const data& a, const data& b) { return compareByName(a, b, option); });
                 end = true;
                 break;
             case 2:
-                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareBySurname(a, b, option); });
+                student.sort([option](const data& a, const data& b) { return compareBySurname(a, b, option); });
                 end = true;
                 break;
             case 3:
-                sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
+                student.sort(option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
                 end = true;
                 break;
             default:
-                cout << "Ivestas netinkamas skaicius. Bandykite dar karta." << endl;
+                cout << "Invalid input. Please try again." << endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 break;
         }
     }
 }
-void distribution(vector<data> studentai, vector<data> &kietakai, vector<data> &vargsiukai, bool option){
-    for(int i = 0; i < studentai.size(); i++){
-        int rez = option ? studentai[i].finalMarkAverage : studentai[i].finalMarkMedian;
-        if(rez < 5)vargsiukai.push_back(studentai[i]);
-        else kietakai.push_back(studentai[i]);
+void distribution(list<data> studentai, list<data> &kietakai, list<data> &vargsiukai, bool option){
+    for(auto it = studentai.begin(); it != studentai.end(); ++it) {
+        int rez = option ? it->finalMarkAverage : it->finalMarkMedian;
+        if(rez < 5)
+            vargsiukai.push_back(*it);
+        else
+            kietakai.push_back(*it);
     }
 }
 int options()

@@ -13,9 +13,10 @@
 #include <limits>
 #include <stdexcept>
 #include <chrono>
-
+#include <list>
 const int STUDENT_SIZE = 1000000;
 
+using std::list;
 using std::endl;
 using std::cin;
 using std::cout;
