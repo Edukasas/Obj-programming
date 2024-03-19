@@ -40,6 +40,41 @@ double data::countMedian()
     else
         return egzamRez * 0.6;
 }
+void sorting(vector<data>& student, bool option) {
+    int a;
+    bool end = false;
+    while (!end) {
+        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
+        cin >> a;
+
+        switch (a) {
+            case 1:
+                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
+                end = true;
+                break;
+            case 2:
+                sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareBySurname(a, b, option); });
+                end = true;
+                break;
+            case 3:
+                sort(student.begin(), student.end(), option ? compareByFinalMarkAverage : compareByFinalMarkMedian);
+                end = true;
+                break;
+            default:
+                cout << "Ivestas netinkamas skaicius. Bandykite dar karta." << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                break;
+        }
+    }
+}
+void distribution(vector<data> studentai, vector<data> &kietakai, vector<data> &vargsiukai, bool option){
+    for(int i = 0; i < studentai.size(); i++){
+        int rez = option ? studentai[i].finalMarkAverage : studentai[i].finalMarkMedian;
+        if(rez < 5)vargsiukai.push_back(studentai[i]);
+        else kietakai.push_back(studentai[i]);
+    }
+}
 int options()
 {
     int number;

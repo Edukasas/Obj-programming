@@ -86,21 +86,20 @@ void input(vector<data> &student)
             s.finalMarkMedian = s.countMedian();
         }
     }
-    catch (const std::exception &ex)
+    catch (const std::exception &e)
     {
-        cerr << "Error: " << ex.what() << endl;
+        cerr << "Error: Netiketa problema ivestyje" << endl;
     }
 }
-void readStudentsFromFile(string &filename, vector<data> &student, bool option, int nameLength, int &fileIndex, int &choice)
+void readStudentsFromFile(string &filename, vector<data> &student)
 {
-    student.reserve(1000);
     ifstream file(filename);
     while (true)
     {
         try
         {
-           cout << "Iveskite failo pavadinima: ";
-           cin >> filename;
+            cout << "Iveskite failo pavadinima: ";
+            cin >> filename;
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -114,27 +113,26 @@ void readStudentsFromFile(string &filename, vector<data> &student, bool option, 
         }
         catch (const invalid_argument &ex)
         {
-            cerr << "Error: " << ex.what() << endl;
+            cerr << "Error: Netinkamas argumentas: " << ex.what() << endl;
         }
         catch (const runtime_error &ex)
         {
-            cerr << "Error:  " << ex.what() << endl;
-        }
-        catch (const bad_alloc &ex) {
-            cerr << "Error: atmintis uzsilenke" << endl;
+            cerr << "Error: Nera tokio failo: " << ex.what() << endl;
         }
     }
+
     string line;
-    fileIndex = 0;
+    int lineNumber = 0;
     getline(file, line);
+
     while (getline(file, line))
     {
-        fileIndex++;
+        lineNumber++;
         data newStudent;
         istringstream iss(line);
-        if (!(iss >> newStudent.name >> newStudent.surname) || newStudent.name.length() < 2 || newStudent.surname.length() < 2)
+        if (!(iss >>  newStudent.name >> newStudent.surname) || newStudent.name.length() < 2 || newStudent.surname.length() < 2)
         {
-            cerr << "Error: Nepavyko nuskaityti studento vardo ir pavardes " << student.size() << " eilute" << endl;
+            cerr << "Error: Nepavyko nuskaityti studento vardo ir pavardes " << lineNumber << " eilute" << endl;
             continue;
         }
         int grade;
@@ -143,30 +141,26 @@ void readStudentsFromFile(string &filename, vector<data> &student, bool option, 
             newStudent.homeWorkRez.push_back(grade);
             newStudent.homeWorkSum += grade;
         }
+
+        if (newStudent.homeWorkRez.empty())
+        {
+            cerr << "Error: Namu darbu rezultato nera " << lineNumber << endl;
+            continue;
+        }
+
         newStudent.egzamRez = newStudent.homeWorkRez.back();
         newStudent.homeWorkRez.pop_back();
         newStudent.homeWorkSum -= newStudent.egzamRez;
         newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
-        if (newStudent.homeWorkRez.empty() && (newStudent.egzamRez < 0 || newStudent.egzamRez > 10))
-        {
-            cerr << "Error: Namu darbu rezultato nera " << student.size() << endl;
-            continue;
-        }
-        double rez = option ? newStudent.finalMarkAverage = newStudent.countAverage() : newStudent.finalMarkMedian = newStudent.countMedian();
         student.push_back(newStudent);
-        if (student.size() == STUDENT_SIZE) {
-            sorting(student, option, choice);
-            sortAndWriteChunk(student, fileIndex / STUDENT_SIZE, option, nameLength);
-            student.clear();
-        }
     }
-    if (!student.empty()) {
-        sorting(student, option, choice);
-        sortAndWriteChunk(student, fileIndex / STUDENT_SIZE + 1, option, nameLength);
-        student.clear();
+    for (auto &s : student)
+    {
+        s.finalMarkAverage = s.countAverage();
+        s.finalMarkMedian = s.countMedian();
     }
-    file.close();
 }
+
 
 void output(vector<data> &student, bool option, int nameLength)
 {
@@ -179,24 +173,32 @@ void output(vector<data> &student, bool option, int nameLength)
     }
     cout << "----";
 }
+
 void writeIntoFile(vector<data> &student, bool option, int nameLength, string filename)
 {
     try
     {
         ofstream out_f(filename);
-        out_f << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
-        out_f << "---------------------------------------------------------------------\n";
+        if (!out_f.is_open())
+        {
+            cerr << "Error: Neiseina atidaryti failo" << endl;
+            return;
+        }
+        std::ostringstream buffer;
+        buffer << setw(nameLength) << left << "Pavardė" << setw(nameLength) << left << "Vardas" << setw(20) << left << (option ? "Galutinis (Vid.)" : "Galutinis (Med.)") << '\n';
+        buffer << "---------------------------------------------------------------------\n";
 
         for (const auto &s : student)
         {
-            out_f << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
+            buffer << setw(nameLength) << left << s.surname << setw(nameLength) << left << s.name << setprecision(3) << left << (option ? s.finalMarkAverage : s.finalMarkMedian) << '\n';
         }
 
-        out_f << "----";
+        buffer << "----";
+        out_f << buffer.str();
         out_f.close();
     }
-    catch (const std::exception &ex)
+    catch (const std::exception &e)
     {
-        cerr << "Error:" << ex.what() << endl;
+        cerr << "Error: Netiketa problema irasant faila" << endl;
     }
 }
