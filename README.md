@@ -44,6 +44,55 @@ This repo contains two files<br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/1000000.png)<br>
   <b> 10000000 file <b> took to read and sort 204.185 s, to output 291.55 s, all 495.736 s<br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/10000000.png)<br>
+## Experiment with different STL containers <br>
+### Deque <br>
+ <b> 1000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque1.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque1a.png)<br><br>
+ <b> 10000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque2.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque2a.png)<br><br>
+ <b> 100000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque3.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque3a.png)<br><br>
+ <b> 1000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque4.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque4a.png)<br><br>
+ <b> 10000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque5.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/deque5a.png)<br><br>
+### Vector <br>
+ <b> 1000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector1.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector1a.png)<br><br>
+ <b> 10000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector2.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector2a.png)<br><br>
+ <b> 100000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector3.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector3a.png)<br><br>
+ <b> 1000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector4.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector4a.png)<br><br>
+ <b> 10000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector5.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/vector5a.png)<br><br>
+### List <br>
+ <b> 1000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list1.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list1a.png)<br><br>
+ <b> 10000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list2.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list2a.png)<br><br>
+ <b> 100000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list3.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list3a.png)<br><br>
+ <b> 1000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list4.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list4a.png)<br><br>
+ <b> 10000000 file <b><br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list5.png)
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list5a.png)<br><br>
   
  
 
