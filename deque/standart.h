@@ -13,9 +13,10 @@
 #include <limits>
 #include <stdexcept>
 #include <chrono>
-
+#include <deque>
 const int STUDENT_SIZE = 1000000;
 
+using std::deque;
 using std::endl;
 using std::cin;
 using std::cout;

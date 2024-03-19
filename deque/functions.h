@@ -18,21 +18,21 @@ struct data
     double countAverage();
     void randomRez();
 };
-void input(vector<data>& student);
-void readStudentsFromFile(string &filename, vector<data> &student);
-void output(vector<data>& student, bool option, int nameLength);
+void input(deque<data>& student);
+void readStudentsFromFile(string &filename, deque<data> &student);
+void output(deque<data>& student, bool option, int nameLength);
 int getBinaryInput();
 int options();
 int getIntegerInput();
 int studentNumber();
-void writeIntoFile(vector<data>& student, bool option, int nameLength, string filename);
+void writeIntoFile(deque<data>& student, bool option, int nameLength, string filename);
 bool compareByFinalMarkAverage(const data& a, const data& b);
 bool compareByFinalMarkMedian(const data& a, const data& b);
 bool compareByName(const data& a, const data& b, bool option);
 bool compareBySurname(const data& a, const data& b, bool option);
 string nameValidation();
-void sorting(vector<data>& student, bool option);
+void sorting(deque<data>& student, bool option);
 bool isNumeric(const string &str);
 void generateFile(int nameLength);
-void distribution(vector<data> studentai, vector<data> &kietakai, vector<data> &vargsiukai, bool option);
+void distribution(deque<data> studentai, deque<data> &kietakai, deque<data> &vargsiukai, bool option);
 #endif

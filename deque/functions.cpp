@@ -40,13 +40,13 @@ double data::countMedian()
     else
         return egzamRez * 0.6;
 }
-void sorting(vector<data>& student, bool option) {
+void sorting(deque<data>& student, bool option) {
     int a;
     bool end = false;
     while (!end) {
-        cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
-        cin >> a;
-
+        // cout << "1 - rikiuoti pagal varda, 2 - rikiuoti pagal pavarde, 3 - rikiuoti pagal pazymi" << endl;
+        // cin >> a;
+        a = 3;
         switch (a) {
             case 1:
                 sort(student.begin(), student.end(), [option](const data& a, const data& b) { return compareByName(a, b, option); });
@@ -68,7 +68,7 @@ void sorting(vector<data>& student, bool option) {
         }
     }
 }
-void distribution(vector<data> studentai, vector<data> &kietakai, vector<data> &vargsiukai, bool option){
+void distribution(deque<data> studentai, deque<data> &kietakai, deque<data> &vargsiukai, bool option){
     for(int i = 0; i < studentai.size(); i++){
         int rez = option ? studentai[i].finalMarkAverage : studentai[i].finalMarkMedian;
         if(rez < 5)vargsiukai.push_back(studentai[i]);
