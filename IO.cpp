@@ -93,14 +93,15 @@ void input(vector<data> &student)
 }
 void readStudentsFromFile(string &filename, vector<data> &student, bool option, int nameLength, int &fileIndex, int &choice)
 {
-    student.reserve(1000);
+    student.reserve(1000000);
     ifstream file(filename);
     while (true)
     {
         try
         {
-           cout << "Iveskite failo pavadinima: ";
-           cin >> filename;
+        //    cout << "Iveskite failo pavadinima: ";
+        //    cin >> filename;
+        filename = "1000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
