@@ -68,15 +68,26 @@ void sorting(list<data>& student, bool option) {
         }
     }
 }
-void distribution(list<data> studentai, list<data> &kietakai, list<data> &vargsiukai, bool option){
-    for(auto it = studentai.begin(); it != studentai.end(); ++it) {
+void distribution(list<data>& studentai, list<data>& kietakai, list<data>& vargsiukai, bool option) {
+    if (studentai.empty()) {
+        throw invalid_argument("Student list is empty.");
+    }
+
+    // Reserve memory for output lists (optional, may not be necessary depending on usage pattern)
+    // kietakai.reserve(studentai.size());
+    // vargsiukai.reserve(studentai.size());
+
+    // Iterate over studentai list and distribute elements
+    for (auto it = studentai.begin(); it != studentai.end(); ) {
         int rez = option ? it->finalMarkAverage : it->finalMarkMedian;
-        if(rez < 5)
-            vargsiukai.push_back(*it);
-        else
-            kietakai.push_back(*it);
+        if (rez < 5) {
+            vargsiukai.splice(vargsiukai.end(), studentai, it++); // Move the element from studentai to vargsiukai
+        } else {
+            kietakai.splice(kietakai.end(), studentai, it++);     // Move the element from studentai to kietakai
+        }
     }
 }
+
 int options()
 {
     int number;

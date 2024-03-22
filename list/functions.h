@@ -34,5 +34,5 @@ string nameValidation();
 void sorting(list<data>& student, bool option);
 bool isNumeric(const string &str);
 void generateFile(int nameLength);
-void distribution(list<data> studentai, list<data> &kietakai, list<data> &vargsiukai, bool option);
+void distribution(list<data> &studentai, list<data> &kietakai, list<data> &vargsiukai, bool option);
 #endif
