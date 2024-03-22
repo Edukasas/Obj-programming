@@ -68,12 +68,22 @@ void sorting(deque<data>& student, bool option) {
         }
     }
 }
-void distribution(deque<data> studentai, deque<data> &kietakai, deque<data> &vargsiukai, bool option){
-    for(int i = 0; i < studentai.size(); i++){
-        int rez = option ? studentai[i].finalMarkAverage : studentai[i].finalMarkMedian;
-        if(rez < 5)vargsiukai.push_back(studentai[i]);
-        else kietakai.push_back(studentai[i]);
+void distribution(deque<data> &studentai, deque<data>& kietakai, deque<data>& vargsiukai, bool option) {
+    if (studentai.empty()) {
+        throw invalid_argument("Student vector is empty.");
     }
+
+    for (const auto& s : studentai) {
+        int rez = option ? s.finalMarkAverage : s.finalMarkMedian;
+        if (rez < 5) {
+            vargsiukai.push_back(s);
+        } else {
+            kietakai.push_back(s);
+        }
+    }
+    kietakai.shrink_to_fit();
+    vargsiukai.shrink_to_fit();
+    studentai.clear();
 }
 int options()
 {

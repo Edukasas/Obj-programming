@@ -100,7 +100,7 @@ void readStudentsFromFile(string &filename, deque<data> &student)
         {
             // cout << "Iveskite failo pavadinima: ";
             // cin >> filename;
-            filename = "1000000";
+            filename = "10000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
