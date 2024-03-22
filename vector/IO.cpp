@@ -100,7 +100,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         {
             // cout << "Iveskite failo pavadinima: ";
             // cin >> filename;
-            filename = "1000000";
+            filename = "10000000";
             if (filename.length() == 0 || filename.length() > 20)
             {
                 throw invalid_argument("Netinkamas failo ilgis (1-20)");
@@ -156,6 +156,7 @@ void readStudentsFromFile(string &filename, vector<data> &student)
         newStudent.homeWorkSum /= newStudent.homeWorkRez.size();
         student.push_back(newStudent);
     }
+    student.shrink_to_fit();
     for (auto &s : student)
     {
         s.finalMarkAverage = s.countAverage();
