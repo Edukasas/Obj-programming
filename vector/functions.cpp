@@ -68,25 +68,41 @@ void sorting(vector<data>& student, bool option) {
         }
     }
 }
-void distribution(vector<data> &studentai, vector<data>& kietakai, vector<data>& vargsiukai, bool option) {
+// void distribution(vector<data> &studentai, vector<data>& kietakai, vector<data>& vargsiukai, bool option) {
+//     if (studentai.empty()) {
+//         throw invalid_argument("Student vector is empty.");
+//     }
+
+//     kietakai.reserve(studentai.size());
+//     vargsiukai.reserve(studentai.size());
+
+//     for (const auto& s : studentai) {
+//         int rez = option ? s.finalMarkAverage : s.finalMarkMedian;
+//         if (rez < 5) {
+//             vargsiukai.push_back(s);
+//         } else {
+//             kietakai.push_back(s);
+//         }
+//     }
+//     kietakai.shrink_to_fit();
+//     vargsiukai.shrink_to_fit();
+//     studentai.clear();
+// }
+void distribution(vector<data>& studentai, vector<data>& kietakai, bool option) {
     if (studentai.empty()) {
-        throw invalid_argument("Student vector is empty.");
+        return; // Nothing to do if the studentai vector is empty
     }
 
     kietakai.reserve(studentai.size());
-    vargsiukai.reserve(studentai.size());
-
-    for (const auto& s : studentai) {
-        int rez = option ? s.finalMarkAverage : s.finalMarkMedian;
-        if (rez < 5) {
-            vargsiukai.push_back(s);
-        } else {
-            kietakai.push_back(s);
+    for (auto it = studentai.rbegin(); it != studentai.rend(); ++it) {
+        int rez = option ? it->finalMarkAverage : it -> finalMarkMedian;
+        if (rez >= 5) {
+            // Move the element to the kietakai vector
+            kietakai.push_back(std::move(*it));
+            // Remove the element from the studentai vector
+            studentai.erase(std::next(it).base()); // Use base() to get the underlying forward iterator
         }
     }
-    kietakai.shrink_to_fit();
-    vargsiukai.shrink_to_fit();
-    studentai.clear();
 }
 int options()
 {
