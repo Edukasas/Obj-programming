@@ -85,22 +85,43 @@ void sorting(list<data>& student, bool option) {
 //         }
 //     }
 // }
-void distribution(list<data>& studentai, list<data>& kietakai, bool option) {
+// void distribution(list<data>& studentai, list<data>& kietakai, bool option) {
+//     if (studentai.empty()) {
+//         return; // Nothing to do if the studentai list is empty
+//     }
+
+//     for (auto it = studentai.rbegin(); it != studentai.rend(); ) {
+//         int rez = option ? it->finalMarkAverage : it->finalMarkMedian;
+//         if (rez >= 5) {
+//             // Move the element to the kietakai list
+//             kietakai.push_back(std::move(*it));
+//             // Erase the element from the studentai list
+//             it = decltype(it)(studentai.erase(std::next(it).base())); // Use decltype to deduce the iterator type
+//         } else {
+//             ++it; // Move to the next element
+//         }
+//     }
+// }
+void distribution(std::list<data>& studentai, std::list<data>& kietakai, std::list<data>& vargsiukai, bool option) {
     if (studentai.empty()) {
-        return; // Nothing to do if the studentai list is empty
+        return;
     }
 
-    for (auto it = studentai.rbegin(); it != studentai.rend(); ) {
+    // Temporary lists to hold elements
+    std::list<data> temp_kietakai, temp_vargsiukai;
+
+    for (auto it = studentai.begin(); it != studentai.end(); ) {
         int rez = option ? it->finalMarkAverage : it->finalMarkMedian;
         if (rez >= 5) {
-            // Move the element to the kietakai list
-            kietakai.push_back(std::move(*it));
-            // Erase the element from the studentai list
-            it = decltype(it)(studentai.erase(std::next(it).base())); // Use decltype to deduce the iterator type
+            temp_kietakai.splice(temp_kietakai.end(), studentai, it++); // Move to temp_kietakai
         } else {
-            ++it; // Move to the next element
+            temp_vargsiukai.splice(temp_vargsiukai.end(), studentai, it++); // Move to temp_vargsiukai
         }
     }
+
+    // Move elements from temp lists to final lists
+    kietakai.splice(kietakai.end(), temp_kietakai);
+    vargsiukai.splice(vargsiukai.end(), temp_vargsiukai);
 }
 int options()
 {
