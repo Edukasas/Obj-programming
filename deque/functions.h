@@ -34,5 +34,5 @@ string nameValidation();
 void sorting(deque<data>& student, bool option);
 bool isNumeric(const string &str);
 void generateFile(int nameLength);
-void distribution(deque<data> &studentai, deque<data> &kietakai, deque<data> &vargsiukai, bool option);
+void distribution(deque<data> &studentai, deque<data> &kietakai, bool option);
 #endif
