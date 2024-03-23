@@ -192,6 +192,15 @@ This repo contains two files<br>
  <b> 10000000 file <b><br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15.png)
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15a.png)<br><br>
+### Average <br>
+10 000 file with the best optimization <br>
+<b>Vector</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+<b>List</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+<b>Deque</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+
 # Releases
 ### Release v0.1 <br>
  You can generate marks as well as name and surname by running c.cpp or vector c.pp<br>
@@ -203,6 +212,7 @@ This repo contains two files<br>
  Can generate files as well as distributes students into two different containers, the below 5 and the rest<br>
  ### Release V1.0 <br>
  Implementation of 3 different STL containers and finding the fastest way of sorting them<br>
+
 
  
 
