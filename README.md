@@ -195,11 +195,11 @@ This repo contains two files<br>
 ### Average <br>
 1 000 000 file with the best optimization <br>
 <b>Vector</b> <br>
-![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average4.png) <br>
 <b>List</b> <br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
 <b>Deque</b> <br>
-![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average4.png) <br>
 
 # Releases
 ### Release v0.1 <br>
