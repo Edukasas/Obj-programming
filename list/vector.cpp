@@ -5,7 +5,7 @@ int main()
     srand(time(nullptr));
     Timer t;
     int a;
-    list<data> student, vargsiukai, kietakai;
+    list<data> student, kietakai;
     string filename;
     int nameLength = 21;
     while (true)
@@ -52,10 +52,10 @@ int main()
     sorting(student, option);
     cout<<"Rikiavimas uztruko: "<<t.elapsed()<<endl;
     t.reset();
-    distribution(student, kietakai, vargsiukai, option);
+    distribution(student, kietakai, option);
     cout<<"Skirstymas i dvi grupes uztruko: "<<t.elapsed()<<endl;
-    outputChoice ? writeIntoFile(student, option, nameLength, "output.txt") : output(student, option, nameLength);
-    writeIntoFile(kietakai, option, nameLength, "kietakai.txt");
-    writeIntoFile(vargsiukai, option, nameLength, "vargsiukai.txt");
+    outputChoice ? (    writeIntoFile(kietakai, option, nameLength, "kietakai.txt"),
+    writeIntoFile(student, option, nameLength, "vargsiukai.txt")) : output(student, option, nameLength);
+
     return 0;
 }
