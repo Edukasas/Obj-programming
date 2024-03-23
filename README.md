@@ -193,13 +193,13 @@ This repo contains two files<br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15.png)
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15a.png)<br><br>
 ### Average <br>
-10 000 file with the best optimization <br>
+1 000 000 file with the best optimization <br>
 <b>Vector</b> <br>
-![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
 <b>List</b> <br>
-![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
 <b>Deque</b> <br>
-![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
 
 # Releases
 ### Release v0.1 <br>
