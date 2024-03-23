@@ -192,6 +192,18 @@ This repo contains two files<br>
  <b> 10000000 file <b><br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15.png)
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15a.png)<br><br>
+# Releases
+### Release v0.1 <br>
+ You can generate marks as well as name and surname by running c.cpp or vector c.pp<br>
+ ### Release v0.2 <br>
+ You can read data from a file<br>
+ ### Release v0.3 <br>
+ Implementation of try/catch, multi function file <br>
+ ### Release v0.4 <br>
+ Can generate files as well as distributes students into two different containers, the below 5 and the rest<br>
+ ### Release V1.0 <br>
+ Implementation of 3 different STL containers and finding the fastest way of sorting them<br>
+
  
 
  
