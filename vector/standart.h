@@ -14,8 +14,9 @@
 #include <stdexcept>
 #include <chrono>
 
-const int STUDENT_SIZE = 1000000;
-
+using std::move;
+using std::back_inserter;
+using std::partition;
 using std::endl;
 using std::cin;
 using std::cout;

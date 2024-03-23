@@ -88,21 +88,33 @@ void sorting(vector<data>& student, bool option) {
 //     vargsiukai.shrink_to_fit();
 //     studentai.clear();
 // }
-void distribution(vector<data>& studentai, vector<data>& kietakai, bool option) {
+// void distribution(vector<data>& studentai, vector<data>& kietakai, bool option) {
+//     if (studentai.empty()) {
+//         return; // Nothing to do if the studentai vector is empty
+//     }
+
+//     kietakai.reserve(studentai.size());
+//     for (auto it = studentai.rbegin(); it != studentai.rend(); ++it) {
+//         int rez = option ? it->finalMarkAverage : it -> finalMarkMedian;
+//         if (rez >= 5) {
+//             // Move the element to the kietakai vector
+//             kietakai.push_back(std::move(*it));
+//             // Remove the element from the studentai vector
+//             studentai.erase(std::next(it).base()); // Use base() to get the underlying forward iterator
+//         }
+//     }
+// }
+void distribution(std::vector<data>& studentai, std::vector<data>& kietakai, bool option) {
     if (studentai.empty()) {
-        return; // Nothing to do if the studentai vector is empty
+        return;
     }
 
-    kietakai.reserve(studentai.size());
-    for (auto it = studentai.rbegin(); it != studentai.rend(); ++it) {
-        int rez = option ? it->finalMarkAverage : it -> finalMarkMedian;
-        if (rez >= 5) {
-            // Move the element to the kietakai vector
-            kietakai.push_back(std::move(*it));
-            // Remove the element from the studentai vector
-            studentai.erase(std::next(it).base()); // Use base() to get the underlying forward iterator
-        }
-    }
+    auto partition_point = std::partition(studentai.begin(), studentai.end(), [&](const data& d) {
+        return option ? d.finalMarkAverage >= 5 : d.finalMarkMedian >= 5;
+    });
+
+    std::move(partition_point, studentai.end(), std::back_inserter(kietakai));
+    studentai.erase(partition_point, studentai.end());
 }
 int options()
 {
