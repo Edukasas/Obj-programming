@@ -14,8 +14,10 @@
 #include <stdexcept>
 #include <chrono>
 #include <deque>
-const int STUDENT_SIZE = 1000000;
 
+using std::move;
+using std::back_inserter;
+using std::partition;
 using std::deque;
 using std::endl;
 using std::cin;
