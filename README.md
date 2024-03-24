@@ -193,6 +193,27 @@ This repo contains two files<br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15.png)
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/list15a.png)<br><br>
 ### Average <br>
+1 000 file with the best optimization <br>
+<b>Vector</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average1.png) <br>
+<b>List</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average1.png) <br>
+<b>Deque</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average1.png) <br>
+10 000 file with the best optimization <br>
+<b>Vector</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average2.png) <br>
+<b>List</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average2.png) <br>
+<b>Deque</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average2.png) <br>
+100 000 file with the best optimization <br>
+<b>Vector</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average3.png) <br>
+<b>List</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average3.png) <br>
+<b>Deque</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average3.png) <br>
 1 000 000 file with the best optimization <br>
 <b>Vector</b> <br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average4.png) <br>
@@ -200,6 +221,14 @@ This repo contains two files<br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average4.png) <br>
 <b>Deque</b> <br>
 ![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average4.png) <br>
+
+10 000 000 file with the best optimization <br>
+<b>Vector</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Vector/average5.png) <br>
+<b>List</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/List/average5.png) <br>
+<b>Deque</b> <br>
+![img](https://github.com/Edukasas/Obj-programming/blob/V1.0/assets/V1.0/Deque/average5.png) <br>
 
 # Releases
 ### Release v0.1 <br>
