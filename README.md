@@ -1,21 +1,18 @@
 # Setup
-<ol>
- <li>Download MinGW compilator</li><br>
- <li>Download and open Visual Studio Code</li><br>
- <li>Open the project, then go to folder named vector</li><br>
- <li>Open terminal and paste this code<br>
-  <pre>
-  <code>
-   mkdir build
-   cd build
-   cmake ..
-   make
-   ./my_program
-  </code>
-   </pre>
- </li><br>
- <li>Enjoy!</li><br>
-</ol>
+
+1. Download MinGW compiler.
+2. Download and open Visual Studio Code.
+3. Open the project, then navigate to the folder named `vector`.
+4. Open the terminal and execute the following commands:
+    ```bash
+    mkdir build
+    cd build
+    cmake ..
+    make
+    ./my_program
+    ```
+5. Enjoy!
+
  ### first file took on average: <br>
  <b>0.224</b> secs to read <br> 
  <b>0.057</b> to output<br>
