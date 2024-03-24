@@ -15,24 +15,27 @@
 
  ## Experiment nr1 <br>
  ### file generation <br>
- <b> 1000 file <b> took 0.025852 s <br>
- <b> 10000 file <b> took 0.083931 s <br>
- <b> 100000 file <b> took 0.900715 s <br>
- <b> 1000000 file <b> took 9.59604 s <br>
- <b> 10000000 file <b> took 76.1765 s <br>
+ <b> 1000 file </b> took 0.025852 s <br>
+ <b> 10000 file </b> took 0.083931 s <br>
+ <b> 100000 file </b> took 0.900715 s <br>
+ <b> 1000000 file </b> took 9.59604 s <br>
+ <b> 10000000 file </b> took 76.1765 s <br>
  ![Experiment1.png](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/1tyrimas.png)<br>
  ## Experiment nr2 <br>
-  <b> 1000 file <b> took to read and sort 0.028622 s, to output 0.032415, all 0.0639 s<br>
+  <b> 1000 file </b> took to read and sort 0.028622 s, to output 0.032415, all 0.0639 s<br>
   ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/1000.png)<br>
-  <b> 10000 file <b> took to read and sort 0.178939 s, to output 0.226061, all 0.405 s<br>
+  <b> 10000 file </b> took to read and sort 0.178939 s, to output 0.226061, all 0.405 s<br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/10000.png)<br>
-  <b> 100000 file <b> took to read and sort 2.51716 s, to output 2.81637 s, all 5.33353 s<br>
+  <b> 100000 file </b> took to read and sort 2.51716 s, to output 2.81637 s, all 5.33353 s<br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/100000.png)<br>
-  <b> 1000000 file <b> took to read and sort 23.0932 s, to output 17.8884 s, all 40.9816 s <br>
+  <b> 1000000 file </b> took to read and sort 23.0932 s, to output 17.8884 s, all 40.9816 s <br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/1000000.png)<br>
-  <b> 10000000 file <b> took to read and sort 204.185 s, to output 291.55 s, all 495.736 s<br>
+  <b> 10000000 file </b> took to read and sort 204.185 s, to output 291.55 s, all 495.736 s<br>
     ![img](https://github.com/Edukasas/Obj-programming/blob/V0.4/assets/10000000.png)<br>
 # Experiment with different STL containers <br>
+1. <b>Vector:</b> A bit slower at reading from huge files, however sorting and distribution are extremely fast due to random access. <br>
+2. <b>List:</b> Reads files faster then vector, however, lack of random access slows the distriution and sorting part by a lot. <br>
+3. <b>Deque:</b> The quickest option. Faster file reading then in vector and faster sorting and distribution due to random access as well.<br>
 ## Strategy 1
 ### Deque <br>
  <b> 1000 file <b><br>
